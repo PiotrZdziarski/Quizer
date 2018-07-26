@@ -1,0 +1,142 @@
+{% extends 'layouts/app.html.twig' %}
+{% block title %}quizer{% endblock %}
+{% block content %}
+
+    {% include'layouts/topnav.html.twig' %}
+    <section class="content bgimagecontent" style="min-height: 80vh" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div style="width: 100%;">
+                        <span class="dashboardtext backbuttons"><a class="hoverhref" href="{{ path('dashboard') }}">Dashboard</a> > {{ quiztitle }}</span>
+                        <span class="quizdashboardtitle nomargintop">Edit Questions</span>
+                        <div class="alertcreate nomargintop">Important! If you already added results, remember to update them after deleting or adding questions! <a class="editresulthref" href="{{ path('editresults', {'id' : quizid}) }}"> Do it here!</a> </div>
+                        <span class="dashboardtext">quiz title: {{ quiztitle }}</span><br>
+                        <span class="dashboardtext">Questions: {{ questioncount }}</span>
+                        <div class="sexy_line"></div>
+                        {% for question in QuestionsDB %}
+                          <div class="card cardquizDSB">
+                            <div class="card-header cardheaderdashboard">
+                                <span class="quiztitleDSB">{{ question.question }}</span>
+                                <div class="utitilitesDSB">
+                                    <span style="float:left; margin-right: 10px;"><i class="fa fa-clock"></i>No. {{ question.questionnumber }}</span>
+                                    <button class="btn btn-info buttoncollapsequiz" v-on:click="changeaftercollapse" data-collapsed="false" type="button" data-toggle="collapse" data-target="#collapseQuiz{{ question.id }}" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-angle-down"></i></button>
+                                </div>
+                            </div>
+                            <div class="collapse" id="collapseQuiz{{ question.id }}">
+                              <div class="divcardbody">
+                                  <div class="leftdivDSB">
+                                      <ol class="custom-counter">
+                                      {% for answer in AsnwersDB %}
+                                          {% if answer.questionid == question.id %}
+                                              <li>
+                                              <div class="infoDSB" style="display: inline;">
+                                                    {{ answer.answer }}<br>
+                                              </div>
+                                                  </li>
+                                          {% endif %}
+                                      {% endfor %}
+                                      </ol>
+                                      <a href="#" class="hoverhref startquizDSB">Start Quiz!</a>
+                                      <p class="editbuttons">
+                                          <a href="{{path('editquestion', {'id': question.id})}}"><button class="btnequestionDSB">Edit Question</button></a>
+                                          <a  data-toggle="modal" data-target="#deletequestionmodal{{ question.id }}"><button class="btnequestionDSB deletebtn">Delete Question</button></a>
+                                          {% include 'layouts/modals/deletequestionmodal.html.twig' %}
+                                      </p>
+                                  </div>
+                                  <div class="rightdivDSB rightdivDSBreal" style="background-color: #eeeeee;  max-width: 30%; min-width: 30%;position: relative !important; /* If you want text inside of it */">
+                                      <img style="top: 0;  left: 0; border-left: .5px solid #DDDDDD;bottom: 0;right: 0; height: 100%; width: 100%; position: absolute; display: block;" {% if question.image != '' %} src="{{ asset(question.authorname ~'/' ~ question.image)}}" {% endif %} class="imgdashboard">
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+                {# !!!!!------------------------------------------------------------------------------------------#}
+                {# !!!!!------------------------------------------------------------------------------------------#}
+                {# !!!!!------------------------------------------------------------------------------------------#}
+                {# !!!!!------------------------------------------------------------------------------------------#}
+                 <div class="col-md-12 col-lg-12">
+                    <div style="width: 100%;">
+                        <span class="quizdashboardtitle">Add Question no. {{ questionsplus }}</span>
+                        <div class="sexy_line"></div>
+                    </div>
+                 </div>
+                <div class="col-md-10 col-lg-10 centeringmargin" style="box-shadow: 0 1px 2px #b9bbbe; background-color: white; margin-bottom: 100px; padding:0; margin-top: 20px;">
+                    <form action="{{ path('addquestionmethod') }}" method="post" id="formcreatequiz" enctype="multipart/form-data" style="height: 100%;">
+                        <input type="hidden" value="{{ quizid }}" name="quizid">
+                        <input type="hidden" value="{{ questionsplus }}" name="questionnumber">
+                        <div class="leftcontainercreateimage">
+                          <div class="form-group">
+                            <label for="answer" id="answerlabel">Question:</label>
+                            <input type="text" maxlength="150" name="question" class="form-control" id="question" required>
+                          </div>
+                          <div id="answerdiv1" class="form-group ">
+                              <label class="float-left" for="answer">Answer 1:</label> <input @click="correctanswer" value="1" class="radioanswerinput" id="radioanswer1" type="radio" name="correctanswer" checked> <div id="correctanswer1" class="correctanswerdiv">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer1" class="form-control" id="answer1" required>
+                          </div>
+                            <div id="answerdiv2" class="form-group  ">
+                              <label class="float-left" for="answer">Answer 2:</label> <input @click="correctanswer" value="2"  class="radioanswerinput" id="radioanswer2" type="radio" name="correctanswer"> <div  id="correctanswer2" class="correctanswerdiv displaynone">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer2" class="form-control" id="answer2" required>
+                          </div>
+                          <div id="answerdiv3" class="form-group  ">
+                              <label class="float-left" for="answer">Answer 3:</label> <input @click="correctanswer" value="3" class="radioanswerinput" id="radioanswer3" type="radio" name="correctanswer"> <div  id="correctanswer3" class="correctanswerdiv displaynone">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer3" class="form-control" id="answer3">
+                          </div>
+                          <div id="answerdiv4" class="form-group">
+                              <label class="float-left" for="answer">Answer 4:</label> <input @click="correctanswer" value="4" class="radioanswerinput" id="radioanswer4" type="radio" name="correctanswer"> <div  id="correctanswer4" class="correctanswerdiv displaynone">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer4" class="form-control" id="answer4">
+                          </div>
+                            <div id="answerdiv5" class="form-group displaynone">
+                              <label class="float-left" for="answer">Answer 5:</label> <input @click="correctanswer" value="5" class="radioanswerinput" id="radioanswer5" type="radio" name="correctanswer"> <div  id="correctanswer5" class="correctanswerdiv displaynone">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer5" class="form-control" id="anwer5">
+                          </div>
+                            <div id="answerdiv6" class="form-group displaynone">
+                              <label class="float-left" for="answer">Answer 6:</label>  <input @click="correctanswer" value="6" class="radioanswerinput" id="radioanswer6" type="radio" name="correctanswer"> <div  id="correctanswer6" class="correctanswerdiv displaynone">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer6" class="form-control" id="answer6">
+                          </div>
+                          <div id="answerdiv7" class="form-group displaynone">
+                              <label class="float-left" for="answer">Answer 7:</label> <input @click="correctanswer" value="7" class="radioanswerinput" id="radioanswer7" type="radio" name="correctanswer"> <div  id="correctanswer7" class="correctanswerdiv displaynone">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer7" class="form-control" id="answer7">
+                          </div>
+                          <div id="answerdiv8" class="form-group displaynone">
+                              <label class="float-left" for="answer">Answer 8:</label> <input @click="correctanswer"  value="8" class="radioanswerinput" id="radioanswer8" type="radio" name="correctanswer"> <div  id="correctanswer8" class="correctanswerdiv displaynone">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer8" class="form-control" id="answer8">
+                          </div>
+                            <div id="answerdiv9" class="form-group displaynone">
+                              <label class="float-left" for="answer">Answer 9:</label> <input @click="correctanswer" value="9" class="radioanswerinput" id="radioanswer9" type="radio" name="correctanswer"> <div  id="correctanswer9" class="correctanswerdiv displaynone">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer9" class="form-control" id="answer9">
+                          </div>
+                            <div id="answerdiv10" class="form-group displaynone">
+                              <label class="float-left" for="answer">Answer 10:</label> <input @click="correctanswer" value="10" class="radioanswerinput" id="radioanswer10" type="radio" name="correctanswer"> <div  id="correctanswer10" class="correctanswerdiv displaynone">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer10" class="form-control" id="answer10">
+                          </div>
+                          <div class="form-group">
+                              <div @click="addanswer" class="addanswer">Add answer</div>
+                              <div @click="removeanswer" class="removeanswer">Remove answer</div>
+                          </div>
+
+                        </div>
+                        <div class="rightcontainerimagecreate">
+                            <div class="form-group">
+                                <label for="description">Question Image:</label>
+                                  <input class="form-control" accept="image/*"  onchange="loadFile(event)" name="image" type="file" id="imgInp">
+                                  <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
+                                <div class="imagedivincreate"><img style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output"></div>
+                            </div>
+                            <button type="submit" id="btnsubmit" onclick="preventsubmit()" class="btn btn-primary btnsubmitquiz">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+    {% include 'layouts/footer.html.twig' %}
+{% endblock %}

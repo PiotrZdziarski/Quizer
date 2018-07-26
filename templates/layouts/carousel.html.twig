@@ -1,0 +1,14 @@
+{% block carousel %}
+<div class="carousel_maindiv clearfix" v-cloak>
+    <div id="owl-demo" class="owl-carousel">
+      {% for quiz in carousel_quizesDB %}
+      <div class="item itemcarousel rightdimension99width">
+        <div class="hoverovercarousel">
+            <p><h4>{{ quiz.title }}</h4></p>
+            <p>{{ quiz.solutions }} solutions</p>
+        </div><img class="lazyOwl img16/9" {% if quiz.image != '' %} data-src="{{ asset(quiz.authorname ~ '/' ~  quiz.image) }}" {% endif %}>
+      </div>
+      {% endfor %}
+    </div>
+</div>
+{% endblock %}

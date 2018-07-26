@@ -1,0 +1,103 @@
+{% extends 'layouts/app.html.twig' %}
+{% block title %}quizer{% endblock %}
+{% block content %}
+
+    {% include'layouts/topnav.html.twig' %}
+    <section class="content bgimagecontent" style="min-height: 80vh">
+
+        <div class="container">
+            <div class="row">
+                {% for question in QuestionsDB %}
+                 <div class="col-md-12 col-lg-12">
+                    <div style="width: 100%;">
+                        <span class="dashboardtext backbuttons"><a class="hoverhref" href="{{ path('dashboard') }}">Dashboard</a> > <a class="hoverhref" href="{{ path('editquestions', {'id' : question.quizid}) }}">{{ quizname }}</a> > {{ question.question }}</span>
+                        <span class="quizdashboardtitle nomargintop">Edit Question no. {{ question.questionnumber }}</span>
+                        <div class="sexy_line"></div>
+                    </div>
+                 </div>
+                <div class="col-md-10 col-lg-10 centeringmargin" style="box-shadow: 0 1px 2px #b9bbbe; background-color: white; margin-bottom: 100px; padding:0; margin-top: 20px;">
+                    <form action="{{ path('editquestionmethod') }}" method="post" id="formcreatequiz" enctype="multipart/form-data" style="height: 100%;">
+                        <input type="hidden" value="{{ question.quizid }}" name="quizid">
+                        <input type="hidden" value="{{ question.id }}" name="questionid">
+                        <input type="hidden" value="{% if idarray[0] is defined %} {{ idarray[0] }} {% endif %}" name="previousanswerid1">
+                        <input type="hidden" value="{% if idarray[1] is defined %} {{ idarray[1] }} {% endif %}" name="previousanswerid2">
+                        <input type="hidden" value="{% if idarray[2] is defined %} {{ idarray[2] }} {% endif %}" name="previousanswerid3">
+                        <input type="hidden" value="{% if idarray[3] is defined %} {{ idarray[3] }} {% endif %}" name="previousanswerid4">
+                        <input type="hidden" value="{% if idarray[4] is defined %} {{ idarray[4] }} {% endif %}" name="previousanswerid5">
+                        <input type="hidden" value="{% if idarray[5] is defined %} {{ idarray[5] }} {% endif %}" name="previousanswerid6">
+                        <input type="hidden" value="{% if idarray[6] is defined %} {{ idarray[6] }} {% endif %}" name="previousanswerid7">
+                        <input type="hidden" value="{% if idarray[7] is defined %} {{ idarray[7] }} {% endif %}" name="previousanswerid8">
+                        <input type="hidden" value="{% if idarray[8] is defined %} {{ idarray[8] }} {% endif %}" name="previousanswerid9">
+                        <input type="hidden" value="{% if idarray[9] is defined %} {{ idarray[9] }} {% endif %}" name="previousanswerid10">
+                        <input type="hidden" value="{{ question.questionnumber }}" name="questionnumber">
+                        <div class="leftcontainercreateimage">
+                          <div class="form-group">
+                            <label for="answer" id="answerlabel">Question:</label>
+                            <input type="text" maxlength="150" name="question" class="form-control" value="{{ question.question }}" id="question" required>
+                          </div>
+                          <div id="answerdiv1" class="form-group {% if answerarray[0] is not defined %} displaynone {% endif %}">
+                              <label class="float-left" for="answer">Answer 1:</label> <input @click="correctanswer" value="1" class="radioanswerinput" id="radioanswer1" type="radio" name="correctanswer" {% if correct_answer_number == 1 %}checked {% endif %}> <div id="correctanswer1" class="correctanswerdiv {% if correct_answer_number != 1 %} displaynone {% endif %}">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer1" {% if answerarray[0] is defined %} value="{{ answerarray[0] }}" {% endif %} class="form-control" id="anwer1" required>
+                          </div>
+                            <div id="answerdiv2" class="form-group  {% if answerarray[1] is not defined %} displaynone {% endif %}">
+                              <label class="float-left" for="answer">Answer 2:</label> <input @click="correctanswer" value="2"  class="radioanswerinput" id="radioanswer2" type="radio" name="correctanswer" {% if correct_answer_number == 2 %}checked {% endif %}> <div  id="correctanswer2" class="correctanswerdiv {% if correct_answer_number != 2 %} displaynone {% endif %}">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer2" {% if answerarray[1] is defined %} value="{{ answerarray[1] }}" {% endif %} class="form-control" id="answer2" required>
+                          </div>
+                          <div id="answerdiv3" class="form-group {% if answerarray[2] is not defined %} displaynone {% endif %} ">
+                              <label class="float-left" for="answer">Answer 3:</label> <input @click="correctanswer" value="3" class="radioanswerinput" id="radioanswer3" type="radio" name="correctanswer" {% if correct_answer_number == 3 %}checked {% endif %}> <div  id="correctanswer3" class="correctanswerdiv {% if correct_answer_number != 3 %} displaynone {% endif %}">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer3" {% if answerarray[2] is defined %} value="{{ answerarray[2] }}" {% endif %} class="form-control" id="answer3">
+                          </div>
+                          <div id="answerdiv4" class="form-group {% if answerarray[3] is not defined %} displaynone {% endif %}">
+                              <label class="float-left" for="answer">Answer 4:</label> <input @click="correctanswer" value="4" class="radioanswerinput" id="radioanswer4" type="radio" name="correctanswer" {% if correct_answer_number == 4 %}checked {% endif %}> <div  id="correctanswer4" class="correctanswerdiv {% if correct_answer_number != 4 %} displaynone {% endif %}">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer4" {% if answerarray[3] is defined %} value="{{ answerarray[3] }}" {% endif %} class="form-control" id="answer4">
+                          </div>
+                            <div id="answerdiv5" class="form-group {% if answerarray[4] is not defined %} displaynone {% endif %}">
+                              <label class="float-left" for="answer">Answer 5:</label> <input @click="correctanswer" value="5" class="radioanswerinput" id="radioanswer5" type="radio" name="correctanswer" {% if correct_answer_number == 5 %}checked {% endif %}> <div  id="correctanswer5" class="correctanswerdiv {% if correct_answer_number != 5 %} displaynone {% endif %}">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer5" {% if answerarray[4] is defined %} value="{{ answerarray[4] }}" {% endif %} class="form-control" id="anwer5">
+                          </div>
+                            <div id="answerdiv6" class="form-group {% if answerarray[5] is not defined %} displaynone {% endif %}">
+                              <label class="float-left" for="answer">Answer 6:</label>  <input @click="correctanswer" value="6" class="radioanswerinput" id="radioanswer6" type="radio" name="correctanswer" {% if correct_answer_number == 6 %}checked {% endif %}> <div  id="correctanswer6" class="correctanswerdiv {% if correct_answer_number != 6 %} displaynone {% endif %}">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer6" {% if answerarray[5] is defined %} value="{{ answerarray[5] }}" {% endif %} class="form-control" id="answer6">
+                          </div>
+                          <div id="answerdiv7" class="form-group  {% if answerarray[6] is not defined %} displaynone {% endif %}">
+                              <label class="float-left" for="answer">Answer 7:</label> <input @click="correctanswer" value="7" class="radioanswerinput" id="radioanswer7" type="radio" name="correctanswer" {% if correct_answer_number == 7 %}checked {% endif %}> <div  id="correctanswer7" class="correctanswerdiv {% if correct_answer_number != 7 %} displaynone {% endif %}">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer7" {% if answerarray[6] is defined %} value="{{ answerarray[6] }}" {% endif %} class="form-control" id="answer7">
+                          </div>
+                          <div id="answerdiv8" class="form-group  {% if answerarray[7] is not defined %} displaynone {% endif %}">
+                              <label class="float-left" for="answer">Answer 8:</label> <input @click="correctanswer"  value="8" class="radioanswerinput" id="radioanswer8" type="radio" name="correctanswer" {% if correct_answer_number == 8 %}checked {% endif %}> <div  id="correctanswer8" class="correctanswerdiv {% if correct_answer_number != 8 %} displaynone {% endif %}">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer8" {% if answerarray[7] is defined %} value="{{ answerarray[7] }}" {% endif %} class="form-control" id="answer8">
+                          </div>
+                            <div id="answerdiv9" class="form-group  {% if answerarray[8] is not defined %} displaynone {% endif %}">
+                              <label class="float-left" for="answer">Answer 9:</label> <input @click="correctanswer" value="9" class="radioanswerinput" id="radioanswer9" type="radio" name="correctanswer" {% if correct_answer_number == 9 %}checked {% endif %}> <div  id="correctanswer9" class="correctanswerdiv {% if correct_answer_number != 9 %} displaynone {% endif %}">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer9" {% if answerarray[8] is defined %} value="{{ answerarray[8] }}" {% endif %} class="form-control" id="answer9">
+                          </div>
+                            <div id="answerdiv10" class="form-group {% if answerarray[9] is not defined %} displaynone {% endif %}">
+                              <label class="float-left" for="answer">Answer 10:</label> <input @click="correctanswer" value="10" class="radioanswerinput" id="radioanswer10" type="radio" name="correctanswer" {% if correct_answer_number == 10 %}checked {% endif %}> <div  id="correctanswer10" class="correctanswerdiv {% if correct_answer_number != 10 %} displaynone {% endif %}">Correct answer!</div>
+                              <input type="text" maxlength="150" name="answer10" {% if answerarray[9] is defined %} value="{{ answerarray[9] }}" {% endif %} class="form-control" id="answer10">
+                          </div>
+                          <div class="form-group">
+                              <div @click="addanswer" class="addanswer">Add answer</div>
+                              <div @click="removeanswer" class="removeanswer">Remove answer</div>
+                          </div>
+
+                        </div>
+                        <div class="rightcontainerimagecreate">
+                            <div class="form-group">
+                                <label for="description">Question Image:</label>
+                                  <input class="form-control" onchange="loadFile(event)" name="image" type="file" id="imgInp">
+                                  <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
+                                <div class="imagedivincreate"><img {% if question.image != '' %} src="{{ asset(question.authorname ~'/' ~ question.image)}}" {% endif %}style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output"></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btnsubmitquiz">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </section>
+
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+    {% include 'layouts/footer.html.twig' %}
+{% endblock %}

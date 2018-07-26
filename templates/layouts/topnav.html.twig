@@ -1,0 +1,105 @@
+{% block topnav %}
+{#
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+<div class="headernav collapse navbar-collapse" id="mainNav">
+    <div class="container navbar-nav">
+        <div class="row">
+            <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2 logo "><a href="index.html"><img src="images/logo.jpg" alt=""  /></a></div>
+            <div class="col-lg-3 col-xs-9 col-sm-5 col-md-3 selecttopic">
+                 <a  href="{{ path('index') }}" class="hoverhref" style="font-size: 32px; color: #555555">Quizer</a>
+            </div>
+            <div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
+                <div class="wrap">
+                    <form action="#" method="post" class="form">
+                        <div class="pull-left txt"><input type="text" class="form-control" placeholder="Search Topics"></div>
+                        <div class="pull-right"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
+                <div class="stnt pull-left">
+                    <form action="03_new_topic.html" method="post" class="form">
+                        <button class="btn btn-primary">Start New Topic</button>
+                    </form>
+                </div>
+                <div class="env pull-left"><i class="fa fa-envelope"></i></div>
+
+                <div class="dropdown avatar pull-left">
+                  <a data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+                      <img src="{{ asset('img/noperson.jpg') }}" alt="" style="width: 37px;height: 37px;"/>
+                      <b class="caret"></b>
+                      {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                      <div class="status green">&nbsp;</div>
+                    </a>
+                  <div class="dropdown-menu dropdownavatar" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#"><b class="dropdownavataritem">Profile</b></a>
+                      <a class="dropdown-item" href="{{ path('logout') }}"><b class="dropdownavataritem">Log Out</b></a>
+                  </div>
+                    {% else %}
+                        <div class="status gray">&nbsp;</div>
+                  </a>
+                  <div class="dropdown-menu dropdownavatar" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="{{ path('login') }}"><b class="dropdownavataritem">Log In</b></a>
+                      <a class="dropdown-item" href="{{ path('register') }}"><b class="dropdownavataritem">Create Account</b></a>
+                  </div>
+                    {% endif %}
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</nav>
+#}
+
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a  href="{{ path('index') }}" class="hoverhref navbar-brand"  style="font-size: 32px; color: #555555"><img class="logotopnav" src="{{ asset('img/logo.png') }}"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link padding-hover" href="#">Create quiz!</a>
+      </li>
+      <li class="nav-item padding-hover">
+        <a class="nav-link" href="#">TOP</a>
+      </li>
+      <li class="nav-item padding-hover">
+        <a class="nav-link" href="#">Categories</a>
+      </li>
+      <li class="nav-item">
+        <div class="dropdown avatar pull-left">
+          <a data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+              <img src="{{ asset('img/noperson.jpg') }}" alt="" style="width: 37px;height: 37px;"/>
+              <b class="caret"></b>
+              {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+              <div class="status green">&nbsp;</div>
+            </a>
+          <div class="dropdown-menu dropdownavatar" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="{{ path('dashboard') }}"><b class="dropdownavataritem">Dashboard</b></a>
+              <a class="dropdown-item" href="{{ path('profile') }}"><b class="dropdownavataritem">Create Quiz</b></a>
+              <a class="dropdown-item" href="{{ path('profile') }}"><b class="dropdownavataritem">Profile</b></a>
+              <a class="dropdown-item" href="{{ path('logout') }}"><b class="dropdownavataritem">Log Out</b></a>
+          </div>
+            {% else %}
+                <div class="status gray">&nbsp;</div>
+          </a>
+          <div class="dropdown-menu dropdownavatar" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="{{ path('login') }}"><b class="dropdownavataritem">Log In</b></a>
+              <a class="dropdown-item" href="{{ path('register') }}"><b class="dropdownavataritem">Create Account</b></a>
+          </div>
+            {% endif %}
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+{% endblock %}

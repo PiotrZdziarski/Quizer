@@ -1,0 +1,65 @@
+{% extends 'layouts/app.html.twig' %}
+{% block title %}quizer{% endblock %}
+{% block content %}
+
+    {% include'layouts/topnav.html.twig' %}
+    <section class="content bgimagecontent" style="min-height: 80vh">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div style="width: 100%;">
+                        <span class="dashboardtext" style="margin-top: 10px; text-transform: none; display: block;"><a class="hoverhref" href="{{ path('dashboard') }}">Dashboard</a></span>
+                        <span class="quizdashboardtitle nomargintop">Your Quizes</span>
+                        <span class="dashboardtext">here you can edit your quiz, questions and results!</span>
+                        <div class="sexy_line"></div>
+                        {% for quiz in QuizesDB %}
+                          <div class="card cardquizDSB">
+                            <div class="card-header cardheaderdashboard">
+                                <span class="quiztitleDSB">{{ quiz.title }}</span>
+                                <div class="utitilitesDSB">
+                                    <span style="float:left; margin-right: 10px;"><i class="fa fa-clock"></i>{{ quiz.date|date('d/m/y') }}</span>
+                                    <button class="btn btn-info buttoncollapsequiz" v-on:click="changeaftercollapse" data-collapsed="false" type="button" data-toggle="collapse" data-target="#collapseQuiz{{ quiz.id }}" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-angle-down"></i></button>
+                                </div>
+                            </div>
+                            <div class="collapse" id="collapseQuiz{{ quiz.id }}">
+                              <div class="divcardbody">
+                                  <div class="leftdivDSB">
+                                      <div class="infoDSB" style="display: inline;">
+                                        <b>Title:</b> {{ quiz.title }}<br>
+                                      </div>
+                                      <div class="infoDSB" style="display: inline;">
+                                        <b>Solutions:</b> {{ quiz.solutions }}<br>
+                                      </div>
+                                      <div class="infoDSB" style="display: inline;">
+                                        <b>Comments:</b> {{ quiz.comments }}<br>
+                                      </div>
+                                      <div class="infoDSB commentsDSB" style="display: block;">
+                                          <span class="deletequizbtn"><a data-toggle="modal" class="cursorpointer" data-target="#deletequizmodal{{ quiz.id }}">Delete quiz</a></span>
+                                          {% include 'layouts/modals/deletequizmodal.html.twig' %}
+                                      </div>
+                                      <a href="#" class="hoverhref startquizDSB">Start Quiz!</a>
+                                      <p class="editbuttons">
+                                          <a href="{{ path('editquiz', {'id': quiz.id}) }}"><button class="btnequestionDSB quizDSB">Edit Quiz</button></a>
+                                          <a href="{{ path('editquestions', {'id': quiz.id}) }}"><button class="btnequestionDSB">Edit Questions</button></a>
+                                          <a href="{{ path('editresults', {'id': quiz.id}) }}"><button class="btnequestionDSB resultsDSB">Edit Results</button></a><br>
+                                      </p>
+                                  </div>
+                                  <div class="rightdivDSB rightdivDSBreal" style="background-color: #eeeeee;  max-width: 30%; min-width: 30%;
+    position: relative !important; /* If you want text inside of it */">
+                                      <img class="imgdashboard" style="top: 0;  left: 0; border-left: .5px solid #DDDDDD;bottom: 0;right: 0; height: 100%; width: 100%; position: absolute; display: block;" {% if quiz.image != '' %} src="{{ quiz.authorname ~'/' ~ quiz.image}}" {% endif %}>
+                                        <div style="clear:both"></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        {% endfor %}
+                        <span class="quizdashboardtitle createnewquizDSB"><a href="{{ path('createquiztype') }}" class="underline hoverhref">Want to build something amazing? Create new quiz now!</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    {% include 'layouts/footer.html.twig' %}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'layouts/app.html.twig' %}
+{% block title %}quizer{% endblock %}
+{% block content %}
+    {% include'layouts/topnav.html.twig' %}
+    <section class="content bgimagecontent createmainsection editresultssection">
+    <div class="sexylinev2"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <span class="dashboardtext backbuttons"><a class="hoverhref" href="{{ path('dashboard') }}">Dashboard</a> > <a class="hoverhref" href="{{ path('editquestions', {'id' : quizid}) }}">{{ quizname }}</a> > Edit results</span>
+                </div>
+                <span class="quizdashboardtitle quidashboardtitlecreate nomargintop">Edit results!</span>
+                <div class="sexy_line" style="width: 100%;"></div>
+                {% if quesioncount == 0 %} <span class="w-100 noquestionfound">It looks like you haven't added any questions yet! You can do it <a href="{{ path('editquestions', {'id': quizid}) }}" class="hrefquestion">here!</a></span>{% endif %}
+                {% if quesioncount != 0 %}
+                    <div class="col-md-10 col-lg-10 centeringmargin" style="box-shadow: 0 1px 2px #b9bbbe; background-color: white; margin-bottom: 100px; padding:0; margin-top: 20px;">
+                        {% if quesioncount == 1 %} {% include 'layouts/components/onequestion.html.twig' %} {% endif %}
+                        {% if quesioncount == 2 %} {% include 'layouts/components/twoquestion.html.twig' %} {% endif %}
+                        {% if quesioncount == 3 or quesioncount > 3 %} {% include 'layouts/components/threeandmorequestion.html.twig' %} {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </section>
+    {% include 'layouts/footer.html.twig' %}
+{% endblock %}

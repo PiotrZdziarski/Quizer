@@ -1,0 +1,41 @@
+<div class="col-lg-8 col-md-8 " id="quizscripts">
+    <div class="post quiztitlediv" style=" border-bottom:0;">
+        <span>{{ QuizesDB.title }}</span>
+    </div>
+    {% for question in QuestionsDB %}
+        <div id="question{{ question.questionnumber }}" class="post quizmaindiv {% if question.questionnumber  >  1 %} displaynone {% endif %}" style="border-bottom: 0;border-top: 3px solid #14c588">
+            <div class="rightdivDSB"><img class="img16/9" {% if question.image != '' %} src="{{ asset(question.authorname ~ '/'~ question.image) }}" {% endif %}></div>
+            <div class="textinquizplay">{{ question.question }}a sdnaso doasn disa douias dnasio dnasdrwerwerwerwerwersauduihsdas  asd asd  das dasd as dasdnasdsaudu ihsdasdnasdsauduihsdas dnasdsauduihsdas dnasdsauduihsdas dnasdsauduihsdas dnasdsauduihsdas</div>
+            <div style="clear:both;"></div>
+            <div class="border-div"></div>
+            <div class="answercontainer">
+                {% for answer in AnswersDB %}
+                    {% if answer.questionid == question.id %}
+                        <div data-quizid="{{ question.quizid  }}" data-correctanswer="{{ answer.correctanswer }}" data-questioncount="{{ questioncount }}" data-questionnumber="{{ question.questionnumber }}" v-on:click="answerchoosen" class="answer {% if answer.correctanswer == 1%} correctanswer{{ question.questionnumber }} {% endif %}">{{ answer.answer }}</div>
+                    {% endif %}
+                {% endfor %}
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for endingquote in EndingquotesDB %}
+        <div id="endingquote{{ endingquote.id}}" class="displaynone" >
+            <div class="post quiztitlediv endingquotetitle">
+                <span>{{ endingquote.title }}</span>
+            </div>
+            <div class="post quizmaindiv" style="border-bottom: 0;border-top: 3px solid #14c588">
+                <div class="imagediv"><img class="imageinquiz" src="{{ asset('img/birds.jpg') }}">
+                    <button onclick="reloadBrowser()" class="btntryagain"><i class="fa fa-redo"></i> Try again</button>
+                </div>
+                <div class="textinquizplay">
+                    <span class="endingquotetext answersspan">Answers: <a style="font-size: 22px;"><{score}>/{{ questioncount }}</a></span>
+                    <br>
+                    <span class="endingquotetext" style="display: block; line-height: 160%;">{{ endingquote.quote }}</span>
+                </div>
+                <div style="clear:both;"></div>
+                <div class="border-div"></div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

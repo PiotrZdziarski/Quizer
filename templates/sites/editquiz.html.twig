@@ -1,0 +1,73 @@
+{% extends 'layouts/app.html.twig' %}
+{% block title %}quizer{% endblock %}
+{% block content %}
+    {% include'layouts/topnav.html.twig' %}
+    <section class="content bgimagecontent createmainsection" style="min-height: 80vh;">
+    <div class="sexylinev2"></div>
+        <div class="container">
+            <div class="row">
+                <span class="quizdashboardtitle quidashboardtitlecreate">Edit Quiz!</span>
+                <div class="sexy_line" id="sexylinecreate"></div>
+                {% for quiz in QuizesDB %}
+                <div class="col-md-10 col-lg-10 centeringmargin" style="box-shadow: 0 1px 2px #b9bbbe; background-color: white; margin-bottom: 100px; padding:0; margin-top: 20px;">
+                    <div class="leftcontainercreateimage">
+                       <form action="{{ path('editquizmethod') }}" method="post" id="formcreatequiz" enctype="multipart/form-data">
+                           <input type="hidden" value='{{ quiz.id }}' name="quizid">
+                           <div class="form-group">
+                            <label for="type">Type:</label>
+                            <select name="type" class="form-control" id=type" disabled>
+                                <option {% if quiz.typeid == 1%} checked {% endif %} value="1">Knowledge test</option>
+                                <option {% if quiz.typeid == 2%} checked {% endif %} value="2">Psychotest</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="title">Title:</label>
+                            <input type="text" maxlength="150" name="title" class="form-control" value="{{ quiz.title }}" id="title" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="category">Category:</label>
+                            <select name="category" class="form-control" id=category">
+                                {% for category in CategoriesDB %}
+                                    <option value="{{ category.id }}">{{ category.category }}</option>
+                                {% endfor %}
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="description">Description:</label>
+                              <textarea class="form-control"  maxlength="200" name="description" placeholder="Awesome quiz!" id="description" required>{{ quiz.description }}</textarea>
+                          </div>
+                          <div class="form-group row">
+                            <div  style="float:left;margin-left: 15px;">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="radio" name="publicprivate"  value="0" {% if quiz.public == 0%} checked {% endif %}>Private <span data-toggle="tooltip" Title="Only you will have access to your quiz!">(?)</span>
+                                    </label>
+                                </div>
+                            </div>
+                              <div style="float:left; margin-left: 20px;">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="radio" name="publicprivate" value="1" {% if quiz.public == 1%} checked {% endif %}>Public <span data-toggle="tooltip" Title="Everyone will have access to your quiz!">(?)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rightcontainerimagecreate">
+                        <div class="form-group">
+                            <label for="description">Quiz Image:</label>
+                              <input class="form-control" accept="image/*"  onchange="loadFile(event)" name="image" type="file" id="imgInp">
+                              <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
+                            <div class="imagedivincreate"><img {% if quiz.image != '' %} src="{{'/' ~ username ~ '/' ~ quiz.image}}" {% endif %} style="max-width: 100%; background-color: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btnsubmitquiz">Save changes!</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </section>
+    {% include 'layouts/footer.html.twig' %}
+{% endblock %}

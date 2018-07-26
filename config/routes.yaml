@@ -1,0 +1,84 @@
+deletequiz:
+   path: /deletequiz/{quizid}
+   controller: App\Controller\UIcontroller::deletequiz
+search:
+   path: /search
+   controller: App\Controller\SitesController::search
+realeditresultsmethod:
+   path: /realeditresultsmethod
+   controller: App\Controller\UtilityController::realeditresultsmethod
+editresultsmethod:
+   path: /editresultsmethod
+   controller: App\Controller\UtilityController::editresultsmethod
+editresults:
+   path: /editresults/{id}
+   controller: App\Controller\SitesController::editresults
+editquestionmethod:
+   path: /editquestionmethod
+   controller: App\Controller\UtilityController::editquestionmethod
+addquestionmethod:
+   path: /addquestionmethod
+   controller: App\Controller\UtilityController::addquestionmethod
+editquestion:
+   path: /editquestion/{id}
+   controller: App\Controller\SitesController::editquestion
+editquestions:
+   path: /editquestions/{id}
+   controller: App\Controller\SitesController::editquestions
+editquizmethod:
+   path: /editquizmethod
+   controller: App\Controller\UIcontroller::editquizmethod
+editquiz:
+    path: /editquiz/{id}
+    controller:   App\Controller\SitesController::editquiz
+dashboard:
+    path: /dashboard
+    controller:   App\Controller\SitesController::dashboard
+checkscore:
+   path: quizplay/checkscore/{score}/{id}
+   controller: App\Controller\UIcontroller::checkscore
+afterregister:
+    path: /afterregister
+    controller:   App\Controller\SitesController::afterregister
+registermethod:
+    path: /registermethod
+    controller: App\Controller\SecurityController::registermethod
+index:
+   path: /
+   controller: App\Controller\SitesController::index
+createquizmethod:
+   path: /createquizmethod
+   controller: App\Controller\UIcontroller::createquizmethod
+createquiztype:
+   path: /createquiztype
+   controller: App\Controller\SitesController::createquiztype
+checkuser:
+   path: /checkuser/{username}
+   controller: App\Controller\UIcontroller::checkuser
+create_knowledge_test:
+   path: /create_knowledge_test
+   controller: App\Controller\SitesController::create_knowledge_test
+checkemail:
+   path: /checkemail/{email}
+   controller: App\Controller\UIcontroller::checkemail
+quiz:
+    path: /quiz/{id}
+    controller: App\Controller\SitesController::quiz
+profile:
+    path: /profile
+    controller:  App\Controller\SitesController::profile
+quizplay:
+    path: /quizplay/{id}
+    controller: App\Controller\SitesController::quizplay
+deletequestion:
+   path: /deletequestion/{id}
+   controller: App\Controller\UtilityController::deletequestion
+
+
+
+
+
+
+
+
+

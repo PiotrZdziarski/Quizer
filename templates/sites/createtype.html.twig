@@ -1,0 +1,53 @@
+{% extends 'layouts/app.html.twig' %}
+{% block title %}quizer{% endblock %}
+{% block content %}
+
+    {% include'layouts/topnav.html.twig' %}
+    <section class="content bgimagecontent">
+    <div class="sexylinev2"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div style="width: 100%;">
+                        <span class="quizdashboardtitle">Create Quiz!</span>
+                        <div class="sexy_line"></div>
+                        <span class="choosequiztypetitle">Choose Quiz Type!</span>
+                        <div class="col-lg-9 col-md-10 centeringmargin">
+                            <div class="card cardquizDSB">
+                                <div class="card-body" style="padding: 5px;  width: 100%; box-shadow: 0 1px 2px #b9bbbe; border: 0; background-color: #fefefe;">
+                                    <div class="imgquiztype">
+                                        <img style="width:100%; height: 100%;" src="{{ asset('img/goodnot.jpg') }}">
+                                    </div>
+                                    <div class="textquiztype">
+                                        <span class="quiztypecreate">
+                                            Knowledge Test
+                                        </span><br>
+                                        <span>Test your knowledge by choosing the correct answer from the given!</span><br>
+                                        <a href = "{{ path('createquiz', {'quiztype': 1}) }}"><button class="thisonecreate">This one!</button></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card cardquizDSB psychotestquizcard">
+                                <div class="card-body" style="padding: 5px;  width: 100%; box-shadow: 0 1px 2px #b9bbbe; border: 0; background-color: #fefefe;">
+                                    <div class="imgquiztype">
+                                        <img style="width:100%; height: 100%;" src="{{ asset('img/this-or-that.jpg') }}">
+                                    </div>
+                                    <div class="textquiztype">
+                                        <span class="quiztypecreate">
+                                            Psychotest
+                                        </span><br>
+                                        <span>This type of quiz have each of the answers assigned to certain result! For example: Which actor you are similar to? Where results are: Brad Pitt, Jason Statham, etc.</span><br>
+                                        <a href = "{{ path('createquiz', {'quiztype': 2}) }}"><button class="thisonecreate">This one!</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    {% include 'layouts/footer.html.twig' %}
+{% endblock %}

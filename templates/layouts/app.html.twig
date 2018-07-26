@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Scripts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/vue.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/quiz.js') }}" defer></script>
+    <script src="{{ asset('js/wtfcropper.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}" defer></script>
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,700&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,400,600&amp;subset=latin-ext" rel="stylesheet">
+    <!-- Styles -->
+    <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
+  rel="stylesheet"  type='text/css'>
+    <link href="{{ asset('css/myown.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/adminpanel.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/owl.carousel.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/owl.theme.css') }}" rel="stylesheet">
+
+</head>
+<body>
+    <section id="content">
+        {% block content %}
+        {% endblock %}
+    </section>
+
+
+    {% for message in app.flashes('status') %}
+    <!-- MESSAGE ON BOTTOM -->
+        <input id="backbuttonstate" type="text" value="0" style="display:none;" />
+        <div id="message">
+            <transition name="fade">
+                <div v-if="statusMessage" class="flash-notice" v-cloak>
+                    {{ message }} <div class="timesclose" @click = "hidenotice">&times</div>
+                </div>
+            </transition>
+        </div>
+        <script>
+            new Vue({
+                el: '#message',
+                data: {
+                    statusMessage: false,
+                    backbuttonstate,
+                },
+                mounted: function() {
+                    this.hidemessage();
+                    var self = this;
+                    document.addEventListener('DOMContentLoaded', function () {
+                       this.backbuttonstate = document.getElementById("backbuttonstate");
+                       if (this.backbuttonstate.value == "0") {
+                         self.statusMessage = true;
+                         this.backbuttonstate.value = "1";
+                       } else {
+                           self.statusMessage = false;
+                         // Back button has been fired.. Do Something different..
+                       }
+                    }, false);
+                },
+                methods: {
+                    hidemessage() {
+                        var self = this;
+                        setTimeout(function(){
+                            self.statusMessage = false
+                        }, 4000);
+                    },
+                    hidenotice() {
+                        this.statusMessage = false;
+                    }
+                }
+            });
+        </script>
+    {% endfor %}
+
+</body>
+</html>

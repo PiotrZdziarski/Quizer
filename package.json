@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "vue": "^2.5.16",
+    "vue-cropperjs": "^2.2.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.24.5",
+    "gulp": "^3.9.1"
+  }
+}

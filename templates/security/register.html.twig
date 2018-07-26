@@ -1,0 +1,76 @@
+{% extends 'layouts/app.html.twig' %}
+{% block title %}quizer{% endblock %}
+{% block content %}
+
+    {% include 'layouts/topnav.html.twig' %}
+    <section class="content">
+    {% include 'layouts/carousel.html.twig' %}
+
+
+    <div class="container" style="margin-top:20px;">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <div class="post" style="padding: 25px;">
+                <form method="POST" id="registerform" action="{{ path('registermethod') }}">
+                    <div class="form-group row">
+                        <label for="username" class="col-sm-4 col-form-label text-md-right"><b>Username</b></label>
+                        <div class="col-md-6">
+                            <input id="username" v-model="username" type="text" class="form-control" name="_username" value="" required autofocus>
+                            <span class="errorspan"><b id="usernameerror" class="rederror"></b></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="email" class="col-md-4 col-form-label text-md-right"><b>E-Mail Address</b></label>
+
+                        <div class="col-md-6">
+                            <input id="email" v-model="email" type="email" class="form-control" name="_email" required>
+                            <span class="errorspan"><b id="emailerror" class="rederror"></b></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="password" class="col-md-4 col-form-label text-md-right"><b>Password</b></label>
+
+                        <div class="col-md-6">
+                            <input id="password" v-model="password" type="password" class="form-control" name="_password" required>
+
+                            <span class="errorspan"><b id="passworderror" class="rederror"></b></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="confirm_password" class="col-md-4 col-form-label text-md-right"><b>Confirm Password</b></label>
+
+                        <div class="col-md-6">
+                            <input id="confirm_password" v-model="confirm_password" type="password" class="form-control" name="_confirm_password" required>
+
+                            <span class="errorspan"><b id="confirmpassworderror" class="rederror"></b></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-0">
+                        <div class="col-md-8 offset-md-4">
+                            <button id="btnform" type="button" class="btn btn-primary">
+                                Register
+                            </button>
+
+                            <button type="submit" id="submitregister" style="display: none;"></button>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-0" style="margin-top: 10px;">
+                        <div class="col-md-8 offset-md-4">
+                            <a href="{{ path('login') }}" class="hoverhref">Already have an account?</a>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+           {% include 'layouts/sidebar.html.twig' %}
+       </div>
+    </div>
+
+
+    </section>
+    {% include 'layouts/footer.html.twig' %}
+{% endblock %}

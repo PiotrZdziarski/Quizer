@@ -1,0 +1,13 @@
+<div class="modal" id="deletequestionmodal{{ question.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content" style="border-radius: 0;">
+      <div class="modal-body modaldelete">
+        Delete question?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btncancel" data-dismiss="modal">Cancel</button>
+        <a href="{{'/deletequestion/' ~ question.id}}"><button type="button" class="btn deletebtnmodal">Delete</button></a>
+      </div>
+    </div>
+  </div>
+</div>

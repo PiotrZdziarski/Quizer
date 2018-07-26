@@ -1,0 +1,66 @@
+{% extends 'layouts/app.html.twig' %}
+{% block title %}quizer{% endblock %}
+{% block content %}
+
+    {% include'layouts/topnav.html.twig' %}
+    <section class="content">
+    {% include 'layouts/carousel.html.twig' %}
+
+
+    <div class="container" style="margin-top:10px;">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+            <div class="mainpagediv">
+                <div class="titlequiz" style="margin-bottom: 20px">
+                    <h3><a class="searchresultinscription">Search results:</a> <a class="lookingfor">{{ lookingfor }}</a></h3>
+                </div>
+                {% if no_quiz_found == true %}
+                    <div class="noquizofound">
+                        We haven't found any quiz named like that :( <p>Maybe you will be interested in these quizzes!</p>
+                    </div>
+                {% endif %}
+
+                {% for quiz in QuizesDB %}
+                 <!-- POST -->
+                <div class="post">
+                    <div class="wrap-ut pull-left" style="float: left;">
+                        <div class="userinfo pull-left float-left  quizimage">
+                            <img class="imageinnews" src="{{ asset('/img/birds.jpg') }}">
+                        </div>
+                        <div id="postnews" class="posttext pull-left" style="float: left;">
+                            <h2><a href="/quiz/{{quiz.id}}">{{ quiz.title }}</a></h2>
+                            <p>{{ quiz.description }}</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="postinfo pull-left" style="float: left;">
+                        <div class="views" style="padding-top:1px; padding-bottom: 1px; display: flex; justify-content: center; align-items: center;">
+                            <div data-toggle="tooltip" Title="Solutions" data-placement="right"  style="width: 80%; padding-left:1px; padding-right: 0;">
+                                <i class="fa fa-check"></i> {{ quiz.solutions }}
+
+                            </div>
+
+                        </div>
+                        <div class="views" data-toggle="tooltip" Title="Comments" data-placement="right"><i class="fa fa-comments"></i> {{ quiz.comments }}</div>
+                        <div class="time" data-toggle="tooltip" Title="{{ quiz.authorname }}" data-placement="right" style="display: flex; justify-content: center; align-items: center; height:70px;">
+                            <div class="avatar">
+                                <img src="{{ asset('img/avatar3.jpg') }}" alt="" />
+                                <div class="status green">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear: both"></div>
+                    <div class="clearfix"></div>
+                </div><!-- POST -->
+                {% endfor %}
+            </div>
+            </div>
+           {% include 'layouts/sidebar.html.twig' %}
+
+       </div>
+    </div>
+
+
+    </section>
+    {% include 'layouts/footer.html.twig' %}
+{% endblock %}
