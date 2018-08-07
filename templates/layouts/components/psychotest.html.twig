@@ -4,14 +4,14 @@
     </div>
     {% for question in QuestionsDB %}
         <div id="question{{ question.questionnumber }}" class="post quizmaindiv {% if question.questionnumber  >  1 %} displaynone {% endif %}" style="border-bottom: 0;border-top: 3px solid #14c588">
-            <div class="rightdivDSB"><img class="img16/9" {% if question.image != '' %} src="{{ asset(question.authorname ~ '/'~ question.image) }}" {% endif %} style="width: 100%;"></div>
-            <div class="textinquizplay">{{ question.question }}a sdnaso doasn disa douias dnasio dnasdrwerwerwerwerwersauduihsdas  asd asd  das dasd as dasdnasdsaudu ihsdasdnasdsauduihsdas dnasdsauduihsdas dnasdsauduihsdas dnasdsauduihsdas dnasdsauduihsdas</div>
+            <div class="rightdivDSB"><img class="img16/9"  {% if question.image != '' %} src="{{ asset(question.authorname ~ '/'~ question.image) }}" {% endif %} style="width: 100%;"></div>
+            <div class="textinquizplay">{{ question.question }}</div>
             <div style="clear:both;"></div>
             <div class="border-div"></div>
             <div class="answercontainer">
                 {% for answer in AnswersDB %}
                     {% if answer.questionid == question.id %}
-                        <div data-quizid="{{ question.quizid  }}" data-maxscore ={{ maxscore }} data-answerscore="{{ answer.correctanswer }}" data-questioncount="{{ questioncount }}" data-questionnumber="{{ question.questionnumber }}"  v-on:click="answerchoosen" class="answer {% if answer.correctanswer == 1%} correctanswer{{ question.questionnumber }} {% endif %}">{{ answer.answer }}</div>
+                        <div data-quizid="{{ question.quizid  }}" data-maxscore="{{ maxscore }}" data-answerscore="{{ answer.correctanswer }}" data-questioncount="{{ questioncount }}" data-questionnumber="{{ question.questionnumber }}"  @click="answerchoosen" class="answer {% if answer.correctanswer == 1%} correctanswer{{ question.questionnumber }} {% endif %}">{{ answer.answer }}</div>
                     {% endif %}
                 {% endfor %}
                 <div style="clear: both;"></div>
@@ -29,11 +29,48 @@
                     <img class="img16/9" {% if endingquote.image != '' %} src="{{ asset(endingquote.authorname ~ '/'~ endingquote.image) }}" {% endif %} style="width: 100%;">
                 </div>
                 <div class="textinquizplay">
+                    Score: <b id="endingscore{{ endingquote.id }}"></b>
                     <span class="endingquotetext" style="display: block; line-height: 160%;">{{ endingquote.quote }}</span>
                 </div>
                 <div style="clear:both;"></div>
                 <button onclick="reloadBrowser()" class="btntryagain"><i class="fa fa-redo"></i> Try again</button>
                 <div class="border-div"></div>
+            </div>
+            <div class="shareopiniondiv" style="border-bottom: 3px solid #e91c6d">You may also like:</div>
+            <div class="utilities" style="padding:0px;">
+                <div class="answercontainer alsolikecontainer">
+                    {% for alsolikequiz in also_like_quizesDB %}
+                        <div class="answer alsolikequiz"  onclick="redirectalsolike({{ alsolikequiz.id }})">
+                            <div class="rightdivDSB divimg40%w" id="alsolikeprop{{ alsolikequiz.id }}">
+                                <img {% if alsolikequiz.image != '' %} src="{{ asset(alsolikequiz.authorname ~ '/' ~ alsolikequiz.image) }}" {% endif %} style="width: 100%; transition: .3s ease-in-out all;" class="img16/9">
+                            </div>
+                            {% if alsolikequiz.image != '' %}
+                                <style>
+                                     .alsolikequiz:hover > #alsolikeprop{{ alsolikequiz.id }}{background-color: black; }
+                                </style>
+                             {% else %}
+                                <style>
+                                    .alsolikequiz > #alsolikeprop{{ alsolikequiz.id }}{transition: .1s all ease-in-out;}
+                                    .alsolikequiz:hover > #alsolikeprop{{ alsolikequiz.id }}{background-color: #dfdfdf;}
+                                </style>
+                            {% endif %}
+                            <div class="alsolikequizinfo" style="overflow: hidden; height: 70px; font-size: 16px;">
+                                <div class="categoryalsolike">
+                                    {% for category in categoriesDB %}
+                                        {% if alsolikequiz.categoryid == category.id %}
+                                            {{ category.category }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                {{ alsolikequiz.title }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                 </div>
+            </div>
+            <div class="shareopiniondiv">Share your opinion!</div>
+            <div class="utilities">
+                <div data-width="100%" class="fb-comments" data-comments="0" data-href="{{ appname }}/quiz/{{ QuizesDB.id }}" data-numposts="10"></div>
             </div>
         </div>
     {% endfor %}

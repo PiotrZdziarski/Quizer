@@ -192,7 +192,7 @@
         <label for="from" class="from">From:</label>
         <input required maxlength="10" name="from2" value="{{ result1.minanswers }}" type = "text" style="width: 20px; text-align: center;" id=from">
         <label for="to" class="to">To:</label>
-        <input required maxlength="10" name="to2" value="1" type = "text" style="width: 20px; text-align: center;" id=to">
+        <input required maxlength="10" name="to2" value="{{ result1.maxanswers }}" type = "text" style="width: 20px; text-align: center;" id=to">
       </div>
        <div class="form-group">
         <label for="title">Text:</label>
@@ -206,11 +206,11 @@
 
     <div class="sexy_line nomargintop"></div>
       <div class="form-group">
-          <input type="hidden" value="{{ result2.id }}" name="resultid2">
+          <input type="hidden" value="{{ result2.id }}" name="resultid3">
         <label for="from" class="from">From:</label>
         <input required maxlength="10" name="from3" value="{{ result2.minanswers }}" type = "text" style="width: 20px; text-align: center;" id=from">
         <label for="to" class="to">To:</label>
-        <input required maxlength="10" name="to3" value="2" type = "text" style="width: 20px; text-align: center;" id=to">
+        <input required maxlength="10" name="to3" value="{{ result2.maxanswers }}" type = "text" style="width: 20px; text-align: center;" id=to">
       </div>
        <div class="form-group">
         <label for="title">Text:</label>
@@ -222,7 +222,7 @@
       </div>
 
        <div class="form-group">
-          <input type="hidden" value="{{ result3.id }}" name="resultid2">
+          <input type="hidden" value="{{ result3.id }}" name="resultid4">
         <label for="from" class="from">From:</label>
         <input required maxlength="10" name="from4" value="{{ result3.minanswers }}" type = "text" style="width: 20px; text-align: center;" id=from">
         <label for="to" class="to">To:</label>
@@ -310,7 +310,7 @@
               <div class="form-group">
                   <input class="form-control" accept="image/*"  onchange="loadFile4(event)" name="image4" type="file" id="image4">
                   <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
-                <div class="imagedivincreate"><img {% if result2.image != '' %} src="{{ asset(username ~'/' ~ result2.image)}}" {% endif %} style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output4"></div>
+                <div class="imagedivincreate"><img {% if result3.image != '' %} src="{{ asset(username ~'/' ~ result3.image)}}" {% endif %} style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output4"></div>
               </div>
           </div>
           </div>

@@ -1,6 +1,6 @@
 .quizdashboardtitle{color:#888888; font-weight: 300; margin-top: 15px; width: 100%; font-family: 'Raleway', sans-serif; display: block; font-size: 38px;}
 .buttoncollapsequiz{ font-size: 28px !important; height: 40px; width: 40px; display: flex !important; justify-content: center; align-items: center;}
-.cardheaderdashboard{min-height: 40px; display: flex; padding-bottom: 0 !important; padding-top: 0!important; align-items: center;}
+.cardheaderdashboard{min-height: 40px; display: flex; padding-bottom: 0 !important; padding-top: 0!important; align-items: center; }
 .utitilitesDSB{position: absolute; right:8px; top: 0px; display: flex; border-left: 1px solid lightgray; min-height: 40px; padding-left: 10px; align-items: center;}
 .quiztitleDSB{white-space: pre-line; width: calc(100% - 130px);  word-wrap: break-word; display:block;font-size: 14px;font-family: 'Open Sans', sans-serif; color: #555555; min-height: 10px;}
 .btnequestionDSB{border:0; cursor: pointer; border-radius: 4px; background-color: #0ab2f9; color:white; margin-top: 10px;}
@@ -11,9 +11,12 @@
 .centeringmargin{margin-left: auto; margin-right: auto; display: block;}
 .cardquizDSB{margin-bottom: 10px;}
 .correctanswerdiv{ margin-left: 10px; float:left; color: #1abc9c;}
+.scoreanswerdiv{ margin-left: 10px; float:left; color: #0aa4e4;}
 .radioanswerinput{display: block; float: left; margin-top: 5px; margin-left: 10px;}
+.textanswerinput{display: block; float: left; margin-left: 10px; width: 20px; text-align: center; margin-top: -2px;}
 #answerlabel{font-weight: 600; font-size: 16px;}
 .cardquizDSB:last-child{margin-bottom: 50px;}
+.cardquizDSB:first-child{margin-top: 20px;}
 .sexy_line {
     margin: 15px 0;
     height: 1px;
@@ -33,18 +36,20 @@
     .quiztypecreate{font-size: 16px;}
     .textquiztype{padding: 5px;}
     .quizdashboardtitle{font-size: 24px;}
+    .editingdiv{margin-left: 10px; margin-right:10px;}
     .cardquizDSB{margin-left: -15px; margin-right: -15px;}
     .leftcontainercreateimage{width: 100%; padding-bottom: 40px !important;}
     .rightcontainercreateimage{width: 100%;}
-    .rightcontainerimagecreate{height: 410px;}
+    .rightcontainerimagecreate{height: 440px;}
     .flash-notice{width: 95%;}
-    .farimageresult{margin-top: 0px;}
+    .farimageresult{margin-top: 0;}
     .logotopnav{height: 60px;}
     .rightdivDSB{max-width: 100% !important;width: 100%; padding-top: 56.25%; padding-right: 0!important;}
     .rightdivDSBreal{padding-top: 27.25% !important;}
     .leftdivDSB{width:100%;}
     .divcardbody{display: block;}
     .editresultssection{min-height: 200vh}
+    .quizimage{padding-top: 56.25% !important;}
 }
 @media(min-width: 476px) {
     .divcardbody{display: flex; align-items: center;}
@@ -63,9 +68,9 @@
 .leftdivDSB{padding: 10px;}
 .rightdivDSB{background-color: #eeeeee; max-width: 50%; min-width: 30%;position: relative !important;}
 .rightdivDSBreal{padding-top: 17.25%;}
-.leftcontainercreateimage{box-shadow: 0 1px 2px #b9bbbe; padding: 15px;}
-.rightcontainerimagecreate{box-shadow: 0 1px 2px #b9bbbe; padding: 15px;}
-.rightcontaineresults{box-shadow: 0 1px 2px #b9bbbe; padding: 15px; padding-top: 85px;}
+.leftcontainercreateimage{box-shadow: 0 1px 2px #b9bbbe; padding: 35px; border-top: 3px solid dodgerblue; }
+.rightcontainerimagecreate{box-shadow: 0 1px 2px #b9bbbe; padding: 35px; border-top: 3px solid dodgerblue; }
+.rightcontaineresults{box-shadow: 0 1px 2px #b9bbbe; border-top: 3px solid dodgerblue; padding: 15px; padding-top: 85px;}
 .imagedivincreate{width: 100%; display: flex; justify-content: center;margin-top: 15px;}
 .alertcreate{color: #9e9112;}
 .btnsubmitquiz{position: absolute; bottom:15px; right: 15px; margin-top: 10px;}
@@ -117,6 +122,12 @@ transform: translateX(-50%); background-color: #0bbc7b; padding: 15px; text-alig
   padding: 3px 8px;
   border-radius: 3px;
 }
+.goodanswer::before {
+    background-color: #1abc9c !important;
+}
+.psychotestanswer::before {
+    background-color: #d2c413 !important;
+}
 .deletebtn{background-color: #bb254c;}
 .deletebtn:hover{background-color: #bb254c}
 .btncancel{position:absolute; border-radius: 2px !important;left:15px;}
@@ -139,4 +150,5 @@ transform: translateX(-50%); background-color: #0bbc7b; padding: 15px; text-alig
 .deletequizbtn{color: #9c223d!important; margin-top: 4px; display: block; font-size: 14px; font-family: 'Montserrat', sans-serif; font-weight: 500;}
 .deletequizbtn:hover{color: #ca1424 !important;}
 .cursorpointer{cursor: pointer;}
-.quizimage{padding-top: 23.75%; display: flex !important; justify-content: center; align-items: center!important;}
+.quizimage{padding-top: 22.75%; top:50%;  display: flex !important; justify-content: center; align-items: center!important;}
+.editingdiv{box-shadow: 0 1px 2px #b9bbbe; background-color: white; margin-bottom: 100px; padding:0 !important;margin-top: 20px;}

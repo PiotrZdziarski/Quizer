@@ -1,5 +1,5 @@
 {% extends 'layouts/app.html.twig' %}
-{% block title %}quizer{% endblock %}
+{% block title %}Quizert - Search{% endblock %}
 {% block content %}
 
     {% include'layouts/topnav.html.twig' %}
@@ -16,20 +16,26 @@
                 </div>
                 {% if no_quiz_found == true %}
                     <div class="noquizofound">
-                        We haven't found any quiz named like that :( <p>Maybe you will be interested in these quizzes!</p>
+                        We haven't found any quiz named like that :( <p>Maybe you will be interested in these quizes!</p>
                     </div>
                 {% endif %}
 
                 {% for quiz in QuizesDB %}
                  <!-- POST -->
-                <div class="post">
-                    <div class="wrap-ut pull-left" style="float: left;">
-                        <div class="userinfo pull-left float-left  quizimage">
-                            <img class="imageinnews" src="{{ asset('/img/birds.jpg') }}">
+                <div class="post" style="display: flex; align-items: center;">
+                    <div class="wrap-ut pull-left">
+                        <div class="userinfo pull-left float-left quizimage rightdivDSB">
+                            <a href="{{ path('quizplay', {'id': quiz.id}) }}">
+                                <img  class="imageinnews img16/9" {% if quiz.image != '' %} alt="{{ quiz.title }}" src="{{ asset(quiz.authorname ~ '/' ~ quiz.image) }}" {% endif %}>
+                            </a>
+                            <div style="clear: both"></div>
                         </div>
                         <div id="postnews" class="posttext pull-left" style="float: left;">
                             <h2><a href="/quiz/{{quiz.id}}">{{ quiz.title }}</a></h2>
-                            <p>{{ quiz.description }}</p>
+                            {{ quiz.description }}
+                            <br>
+                            <a class="dateinhome">{{ quiz.date|date('Y-m-d h:i:s') }}</a>
+
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -39,13 +45,34 @@
                                 <i class="fa fa-check"></i> {{ quiz.solutions }}
 
                             </div>
-
                         </div>
-                        <div class="views" data-toggle="tooltip" Title="Comments" data-placement="right"><i class="fa fa-comments"></i> {{ quiz.comments }}</div>
+                        <div class="views" data-toggle="tooltip" Title="Comments" data-placement="right"><i class="fa fa-comments" style="font-size: 18px;"></i>
+                            <a>
+                              <span class="fb-comments-count" data-href="{{ appname ~ '/quiz/' ~quiz.id }}">0</span>
+                            </a>
+                        </div>
                         <div class="time" data-toggle="tooltip" Title="{{ quiz.authorname }}" data-placement="right" style="display: flex; justify-content: center; align-items: center; height:70px;">
                             <div class="avatar">
-                                <img src="{{ asset('img/avatar3.jpg') }}" alt="" />
-                                <div class="status green">&nbsp;</div>
+                                {% for user in UsersDB %}
+                                    {% if user.username == quiz.authorname  %}
+
+                                        <img
+                                            class="imgavatar"
+                                            {% if user.image != '' %}
+                                                src="{{ asset(user.username ~ '/'~ user.image) }}"
+                                            {% else %}
+                                                src="{{ asset('img/noperson.jpg') }}"
+                                            {% endif %}
+                                        />
+
+                                        {% if user.online == 0 %}
+                                            <div class="status gray statusinquiz">&nbsp</div>
+                                        {% else %}
+                                            <div class="status green statusinquiz">&nbsp</div>
+                                        {% endif %}
+
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

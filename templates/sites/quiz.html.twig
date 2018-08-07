@@ -1,5 +1,5 @@
 {% extends 'layouts/app.html.twig' %}
-{% block title %}quizer{% endblock %}
+{% block title %}Quizert - {{ QuizesDB.title }}{% endblock %}
 {% block content %}
 
     {% include 'layouts/topnav.html.twig' %}
@@ -15,48 +15,56 @@
                 </div>
                 <div class="post quizmaindiv">
                     <div class="rightdivDSB">
-                          <img class="img16/9" {% if QuizesDB.image != '' %} src="{{asset(QuizesDB.authorname ~'/' ~ QuizesDB.image)}}" {% endif %}>
+                          <img class="img16/9" style="width:  100%;" {% if QuizesDB.image != '' %} src="{{asset(QuizesDB.authorname ~'/' ~ QuizesDB.image)}}" {% endif %}>
                             <div style="clear:both"></div>
                       </div>
                     <div class="textinquiz">{{ QuizesDB.description }}</div>
+                    <div class="textinquiz questioncount">Questions: <B>{{ questioncount }}</B></div>
+                    <div class="textinquiz questioncount">Quiz Author: <B>{{ QuizesDB.authorname }}</B></div>
                     <div style="clear:both;"></div>
                 </div>
                 <a href="/quizplay/{{ QuizesDB.id }}">
-                    <div class="post startquizdiv" style="background-color: #438bc5;">
-                        <span>Start quiz!</span>
+                    <div class="utilities" style="padding: 10px;">
+                        <div class="post startquizdiv" style="background-color: #438bc5;">
+                            <span>Start quiz!</span>
+                        </div>
                     </div>
                 </a>
+                <div class="shareopiniondiv" style="border-bottom: 3px solid #e91c6d">You may also like:</div>
+                <div class="utilities" style="padding:0px;">
+                    <div class="answercontainer alsolikecontainer">
+                        {% for alsolikequiz in also_like_quizesDB %}
+                            <div class="answer alsolikequiz" onclick="redirectalsolike({{ alsolikequiz.id }})">
+                                <div class="rightdivDSB divimg40%w" id="alsolikeprop{{ alsolikequiz.id }}">
+                                    <img {% if alsolikequiz.image != '' %} src="{{ asset(alsolikequiz.authorname ~ '/' ~ alsolikequiz.image) }}" {% endif %} style="width: 100%; transition: .3s ease-in-out all;" class="img16/9">
+                                </div>
+                                {% if alsolikequiz.image != '' %}
+                                    <style>
+                                         .alsolikequiz:hover > #alsolikeprop{{ alsolikequiz.id }}{background-color: black; }
+                                    </style>
+                                 {% else %}
+                                    <style>
+                                        .alsolikequiz > #alsolikeprop{{ alsolikequiz.id }}{transition: .1s all ease-in-out;}
+                                        .alsolikequiz:hover > #alsolikeprop{{ alsolikequiz.id }}{background-color: #dfdfdf;}
+                                    </style>
+                                {% endif %}
+                                <div class="alsolikequizinfo" style="overflow: hidden; height: 70px; font-size: 16px;">
+                                    <div class="categoryalsolike">
+                                        Psychotest
+                                    </div>
+                                    {{ alsolikequiz.title }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                     </div>
+                </div>
+
+                <div class="shareopiniondiv">Share your opinion!</div>
+                <div class="utilities">
+                    <div data-width="100%" class="fb-comments" data-comments="0" data-href="{{ appname }}/quiz/{{ QuizesDB.id }}" data-numposts="10"></div>
+                </div>
             </div>
            {% include 'layouts/sidebar.html.twig' %}
-
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-xs-12">
-                    <div class="pull-left"><a href="#" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
-                    <div class="pull-left">
-                        <ul class="paginationforum">
-                            <li class="hidden-xs"><a href="#">1</a></li>
-                            <li class="hidden-xs"><a href="#">2</a></li>
-                            <li class="hidden-xs"><a href="#">3</a></li>
-                            <li class="hidden-xs"><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">6</a></li>
-                            <li><a href="#" class="active">7</a></li>
-                            <li><a href="#">8</a></li>
-                            <li class="hidden-xs"><a href="#">9</a></li>
-                            <li class="hidden-xs"><a href="#">10</a></li>
-                            <li class="hidden-xs hidden-md"><a href="#">11</a></li>
-                            <li class="hidden-xs hidden-md"><a href="#">12</a></li>
-                            <li class="hidden-xs hidden-sm hidden-md"><a href="#">13</a></li>
-                            <li><a href="#">1586</a></li>
-                        </ul>
-                    </div>
-                    <div class="pull-left"><a href="#" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
-                    <div class="clearfix"></div>
-                </div>
-             </div>
-          </div>
        </div>
     </div>
 

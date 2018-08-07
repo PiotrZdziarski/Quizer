@@ -5,6 +5,7 @@ use Symfony\Component\Debug\Debug;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 define ('SITE_ROOT', realpath(dirname(__FILE__)));
+define ('APP_NAME', 'localhost:3000');
 require __DIR__.'/../vendor/autoload.php';
 
 // The check is to ensure we don't use .env in production

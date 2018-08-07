@@ -27,7 +27,7 @@ class Answers
     private $answer;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     private $correctanswer;
 
@@ -66,12 +66,12 @@ class Answers
         return $this;
     }
 
-    public function getCorrectanswer(): ?bool
+    public function getCorrectanswer()
     {
         return $this->correctanswer;
     }
 
-    public function setCorrectanswer(bool $correctanswer): self
+    public function setCorrectanswer($correctanswer)
     {
         $this->correctanswer = $correctanswer;
 

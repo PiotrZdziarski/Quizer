@@ -1,0 +1,312 @@
+<div class="leftcontainercreateimage">
+       {% if endingquotescount == 0 %}
+    <form action="{{ path('addresultspsychotest') }}" method="post" id="formcreatequiz" enctype="multipart/form-data">
+       <input type="hidden" name="questioncount" value="{{ quesioncount }}">
+       <input type="hidden" name="quizid" value="{{ quizid }}">
+        <div class="sexy_line nomargintop"></div>
+
+
+       <div class="form-group">
+        <label for="from" class="from">From: <a data-toggle="tooltip" title="Minimum score, that user get">(?)</a></label>
+        <input required maxlength="10" name="from1" value="0" type = "text" style="width: 40px; text-align: center;" id=from" disabled >
+           <label for="to" class="to">To: <a data-toggle="tooltip" title="Maximum score, that user get">(?)</a></label>
+        <input required maxlength="10"  name="to1" value="25%"  type = "text" style="width: 40px; text-align: center;" id=to" disabled >
+       </div>
+       <div class="form-group">
+        <label for="title">Text:</label>
+          <input required maxlength="100"  name="text1" value="Oops!" class="form-control" id="title" required>
+       </div>
+       <div class="form-group">
+        <label for="title">Description:</label>
+          <textarea  maxlength="1500" name="description1" class="form-control" id="title" required>It looks like you are completly different person!</textarea>
+      </div>
+
+
+
+       <div class="sexy_line nomargintop"></div>
+      <div class="form-group">
+        <label for="from" class="from">From:</label>
+        <input required maxlength="10" name="from2" value="26%" type = "text" style="width: 40px; text-align: center;" id=from" disabled>
+        <label for="to" class="to">To:</label>
+        <input required maxlength="10" name="to2" value="50%" type = "text" style="width: 40px; text-align: center;" id=to" disabled>
+      </div>
+       <div class="form-group">
+        <label for="title">Text:</label>
+          <input required maxlength="100"  name="text2" value="No not this way!" class="form-control" id="title" required>
+       </div>
+      <div class="form-group">
+        <label for="title">Description:</label>
+          <textarea  maxlength="1500" name="description2" class="form-control" id="title" required>You have significantly different character!</textarea>
+      </div>
+
+
+         <div class="sexy_line nomargintop"></div>
+      <div class="form-group">
+        <label for="from" class="from">From:</label>
+        <input required maxlength="10" name="from3" value="51%" type = "text" style="width: 40px; text-align: center;" id=from" disabled>
+        <label for="to" class="to">To:</label>
+        <input required maxlength="10" name="to3" value="75%" type = "text" style="width: 40px; text-align: center;" id=to" disabled>
+      </div>
+       <div class="form-group">
+        <label for="title">Text:</label>
+          <input required maxlength="100"  name="text3" value="Yea!" class="form-control" id="title" required>
+       </div>
+      <div class="form-group">
+        <label for="title">Description:</label>
+          <textarea  maxlength="1500" name="description3" class="form-control" id="title" required>Yes something like that!</textarea>
+      </div>
+
+          <div class="sexy_line nomargintop"></div>
+      <div class="form-group">
+        <label for="from" class="from">From:</label>
+        <input required maxlength="10" name="from4" value="76%" type = "text" style="width: 40px; text-align: center;" id=from" disabled>
+        <label for="to" class="to">To:</label>
+        <input required maxlength="10" name="to4" value="100%" type = "text" style="width: 40px; text-align: center;" id=to" disabled>
+      </div>
+       <div class="form-group">
+        <label for="title">Text:</label>
+          <input required maxlength="100"  name="text4" value="WOW!" class="form-control" id="title" required>
+       </div>
+      <div class="form-group">
+        <label for="title">Description:</label>
+          <textarea  maxlength="1500" name="description4" class="form-control" id="title" required>You are exactly that person!</textarea>
+      </div>
+
+</div>
+<div class="rightcontaineresults" style="padding-top: 15px;">
+    <div class="card cardquizDSB">
+        <div class="card-header cardheaderdashboard">
+            <span class="quiztitleDSB">Result 1 Image</span>
+            <div class="utitilitesDSB">
+                <span style="float:left; margin-right: 10px;"><i class="fa fa-clock"></i></span>
+                <button class="btn btn-info buttoncollapsequiz" v-on:click="changeaftercollapse" data-collapsed="false" type="button" data-toggle="collapse" data-target="#resultimage1" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-angle-down"></i></button>
+            </div>
+        </div>
+        <div class="collapse" id="resultimage1">
+          <div class="divcardbody" style="display: flex; justify-content: center; padding-top: 20px;">
+              <div class="form-group">
+                  <input class="form-control" accept="image/*"  onchange="loadFile1(event)" name="image1" type="file" id="imgInp">
+                  <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
+                <div class="imagedivincreate"><img style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output1"></div>
+              </div>
+          </div>
+          </div>
+     </div>
+    <div class="card cardquizDSB farimageresult">
+        <div class="card-header cardheaderdashboard">
+            <span class="quiztitleDSB">Result 2 Image</span>
+            <div class="utitilitesDSB">
+                <span style="float:left; margin-right: 10px;"><i class="fa fa-clock"></i></span>
+                <button class="btn btn-info buttoncollapsequiz" v-on:click="changeaftercollapse" data-collapsed="false" type="button" data-toggle="collapse" data-target="#resultimage2" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-angle-down"></i></button>
+            </div>
+        </div>
+        <div class="collapse" id="resultimage2">
+          <div class="divcardbody" style="display: flex; justify-content: center; padding-top: 20px;">
+              <div class="form-group">
+                  <input class="form-control" accept="image/*"  onchange="loadFile2(event)" name="image2" type="file" id="imgInp">
+                  <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
+                <div class="imagedivincreate"><img style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output2"></div>
+              </div>
+          </div>
+          </div>
+     </div>
+    <div class="card cardquizDSB farimageresult">
+        <div class="card-header cardheaderdashboard">
+            <span class="quiztitleDSB">Result 3 Image</span>
+            <div class="utitilitesDSB">
+                <span style="float:left; margin-right: 10px;"><i class="fa fa-clock"></i></span>
+                <button class="btn btn-info buttoncollapsequiz" v-on:click="changeaftercollapse" data-collapsed="false" type="button" data-toggle="collapse" data-target="#resultimage3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-angle-down"></i></button>
+            </div>
+        </div>
+        <div class="collapse" id="resultimage3">
+          <div class="divcardbody" style="display: flex; justify-content: center; padding-top: 20px;">
+              <div class="form-group">
+                  <input class="form-control" accept="image/*"  onchange="loadFile3(event)" name="image3" type="file" id="imgInp">
+                  <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
+                <div class="imagedivincreate"><img style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output3"></div>
+              </div>
+          </div>
+          </div>
+     </div>
+    <div class="card cardquizDSB farimageresult"  style="margin-bottom: 60px;">
+        <div class="card-header cardheaderdashboard">
+            <span class="quiztitleDSB">Result 4 Image</span>
+            <div class="utitilitesDSB">
+                <span style="float:left; margin-right: 10px;"><i class="fa fa-clock"></i></span>
+                <button class="btn btn-info buttoncollapsequiz" v-on:click="changeaftercollapse" data-collapsed="false" type="button" data-toggle="collapse" data-target="#resultimage4" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-angle-down"></i></button>
+            </div>
+        </div>
+        <div class="collapse" id="resultimage4">
+          <div class="divcardbody" style="display: flex; justify-content: center; padding-top: 20px;">
+              <div class="form-group">
+                  <input class="form-control" accept="image/*"  onchange="loadFile4(event)" name="image4" type="file" id="imgInp">
+                  <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
+                <div class="imagedivincreate"><img style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output4"></div>
+              </div>
+          </div>
+          </div>
+     </div>
+     <button type="submit" class="btn btn-primary btnsubmitquiz">Save results</button>
+     </div>
+    </form>
+    {% endif %}
+
+
+
+
+    {% if endingquotescount != 0 %}
+        <form action="{{ path('editresultspsychotest') }}" method="post" id="formcreatequiz" enctype="multipart/form-data">
+       <input type="hidden" name="questioncount" value="{{ quesioncount }}">
+       <input type="hidden" name="quizid" value="{{ quizid }}">
+        <div class="sexy_line nomargintop"></div>
+
+
+       <div class="form-group">
+           <input type="hidden" value="{{ result0.id }}" name="resultid1">
+        <label for="from" class="from">From: <a data-toggle="tooltip" title="Minimum score, that user get">(?)</a></label>
+        <input required maxlength="10" name="from1" value="0" type = "text" style="width: 40px; text-align: center;" id=from" disabled >
+           <label for="to" class="to">To: <a data-toggle="tooltip" title="Maximum score, that user get">(?)</a></label>
+        <input required maxlength="10"  name="to1" value="25%"  type = "text" style="width: 40px; text-align: center;" id=to" disabled >
+       </div>
+       <div class="form-group">
+        <label for="title">Text:</label>
+          <input required maxlength="100"  name="text1" value="{{ result0.title }}" class="form-control" id="title" required>
+       </div>
+       <div class="form-group">
+        <label for="title">Description:</label>
+          <textarea  maxlength="1500" name="description1" class="form-control" id="title" required>{{ result0.quote }}</textarea>
+      </div>
+
+
+
+       <div class="sexy_line nomargintop"></div>
+      <div class="form-group">
+          <input type="hidden" value="{{ result1.id }}" name="resultid2">
+        <label for="from" class="from">From:</label>
+        <input required maxlength="10" name="from2" value="26%" type = "text" style="width: 40px; text-align: center;" id=from" disabled>
+        <label for="to" class="to">To:</label>
+        <input required maxlength="10" name="to2" value="50%" type = "text" style="width: 40px; text-align: center;" id=to" disabled>
+      </div>
+       <div class="form-group">
+        <label for="title">Text:</label>
+          <input required maxlength="100"  name="text2" value="{{ result1.title }}" class="form-control" id="title" required>
+       </div>
+      <div class="form-group">
+        <label for="title">Description:</label>
+          <textarea  maxlength="1500" name="description2" class="form-control" id="title" required>{{ result1.quote }}</textarea>
+      </div>
+
+
+         <div class="sexy_line nomargintop"></div>
+      <div class="form-group">
+          <input type="hidden" value="{{ result2.id }}" name="resultid3">
+        <label for="from" class="from">From:</label>
+        <input required maxlength="10" name="from3" value="51%" type = "text" style="width: 40px; text-align: center;" id=from" disabled>
+        <label for="to" class="to">To:</label>
+        <input required maxlength="10" name="to3" value="75%" type = "text" style="width: 40px; text-align: center;" id=to" disabled>
+      </div>
+       <div class="form-group">
+        <label for="title">Text:</label>
+          <input required maxlength="100"  name="text3" value="{{ result2.title }}" class="form-control" id="title" required>
+       </div>
+      <div class="form-group">
+        <label for="title">Description:</label>
+          <textarea  maxlength="1500" name="description3" class="form-control" id="title" required>{{ result2.quote }}</textarea>
+      </div>
+
+          <div class="sexy_line nomargintop"></div>
+      <div class="form-group">
+          <input type="hidden" value="{{ result3.id }}" name="resultid4">
+        <label for="from" class="from">From:</label>
+        <input required maxlength="10" name="from4" value="76%" type = "text" style="width: 40px; text-align: center;" id=from" disabled>
+        <label for="to" class="to">To:</label>
+        <input required maxlength="10" name="to4" value="100%" type = "text" style="width: 40px; text-align: center;" id=to" disabled>
+      </div>
+       <div class="form-group">
+        <label for="title">Text:</label>
+          <input required maxlength="100"  name="text4" value="{{ result3.title }}!" class="form-control" id="title" required>
+       </div>
+      <div class="form-group">
+        <label for="title">Description:</label>
+          <textarea  maxlength="1500" name="description4" class="form-control" id="title" required>{{ result3.quote }}</textarea>
+      </div>
+
+    </div>
+    <div class="rightcontaineresults" style="padding-top: 15px;">
+    <div class="card cardquizDSB">
+        <div class="card-header cardheaderdashboard">
+            <span class="quiztitleDSB">Result 1 Image</span>
+            <div class="utitilitesDSB">
+                <span style="float:left; margin-right: 10px;"><i class="fa fa-clock"></i></span>
+                <button class="btn btn-info buttoncollapsequiz" v-on:click="changeaftercollapse" data-collapsed="false" type="button" data-toggle="collapse" data-target="#resultimage1" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-angle-down"></i></button>
+            </div>
+        </div>
+        <div class="collapse" id="resultimage1">
+          <div class="divcardbody" style="display: flex; justify-content: center; padding-top: 20px;">
+              <div class="form-group">
+                  <input class="form-control" accept="image/*"  onchange="loadFile1(event)" name="image1" type="file" id="imgInp">
+                  <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
+                <div class="imagedivincreate"><img {% if result0.image != '' %} src="{{ asset(result0.authorname ~ '/' ~ result0.image) }}" {% endif %} style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output1"></div>
+              </div>
+          </div>
+          </div>
+     </div>
+    <div class="card cardquizDSB farimageresult">
+        <div class="card-header cardheaderdashboard">
+            <span class="quiztitleDSB">Result 2 Image</span>
+            <div class="utitilitesDSB">
+                <span style="float:left; margin-right: 10px;"><i class="fa fa-clock"></i></span>
+                <button class="btn btn-info buttoncollapsequiz" v-on:click="changeaftercollapse" data-collapsed="false" type="button" data-toggle="collapse" data-target="#resultimage2" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-angle-down"></i></button>
+            </div>
+        </div>
+        <div class="collapse" id="resultimage2">
+          <div class="divcardbody" style="display: flex; justify-content: center; padding-top: 20px;">
+              <div class="form-group">
+                  <input class="form-control" accept="image/*"  onchange="loadFile2(event)" name="image2" type="file" id="imgInp">
+                  <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
+                <div class="imagedivincreate"><img  {% if result1.image != '' %} src="{{ asset(result1.authorname ~ '/' ~ result1.image) }}" {% endif %} style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output2"></div>
+              </div>
+          </div>
+          </div>
+     </div>
+    <div class="card cardquizDSB farimageresult">
+        <div class="card-header cardheaderdashboard">
+            <span class="quiztitleDSB">Result 3 Image</span>
+            <div class="utitilitesDSB">
+                <span style="float:left; margin-right: 10px;"><i class="fa fa-clock"></i></span>
+                <button class="btn btn-info buttoncollapsequiz" v-on:click="changeaftercollapse" data-collapsed="false" type="button" data-toggle="collapse" data-target="#resultimage3" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-angle-down"></i></button>
+            </div>
+        </div>
+        <div class="collapse" id="resultimage3">
+          <div class="divcardbody" style="display: flex; justify-content: center; padding-top: 20px;">
+              <div class="form-group">
+                  <input class="form-control" accept="image/*"  onchange="loadFile3(event)" name="image3" type="file" id="imgInp">
+                  <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
+                <div class="imagedivincreate"><img {% if result2.image != '' %} src="{{ asset(result2.authorname ~ '/' ~ result2.image) }}" {% endif %} style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output3"></div>
+              </div>
+          </div>
+          </div>
+     </div>
+    <div class="card cardquizDSB farimageresult"  style="margin-bottom: 60px;">
+        <div class="card-header cardheaderdashboard">
+            <span class="quiztitleDSB">Result 4 Image</span>
+            <div class="utitilitesDSB">
+                <span style="float:left; margin-right: 10px;"><i class="fa fa-clock"></i></span>
+                <button class="btn btn-info buttoncollapsequiz" v-on:click="changeaftercollapse" data-collapsed="false" type="button" data-toggle="collapse" data-target="#resultimage4" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-angle-down"></i></button>
+            </div>
+        </div>
+        <div class="collapse" id="resultimage4">
+          <div class="divcardbody" style="display: flex; justify-content: center; padding-top: 20px;">
+              <div class="form-group">
+                  <input class="form-control" accept="image/*"  onchange="loadFile4(event)" name="image4" type="file" id="imgInp">
+                  <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
+                <div class="imagedivincreate"><img {% if result3.image != '' %} src="{{ asset(result3.authorname ~ '/' ~ result3.image) }}" {% endif %} style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output4"></div>
+              </div>
+          </div>
+          </div>
+     </div>
+     <button type="submit" class="btn btn-primary btnsubmitquiz">Save results</button>
+     </div>
+    </form>
+    {% endif %}
+</div>

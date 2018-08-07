@@ -6,7 +6,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary btncancel" data-dismiss="modal">Cancel</button>
-        <a href="{{'/deletequestion/' ~ question.id}}"><button type="button" class="btn deletebtnmodal">Delete</button></a>
+        {% if typeid == 1 %}
+          <a href="{{'/deletequestion/' ~ question.id}}"><button type="button" class="btn deletebtnmodal">Delete</button></a>
+        {% else %}
+          <a href="{{'/deletequestionpsychotest/' ~ question.id}}"><button type="button" class="btn deletebtnmodal">Delete</button></a>
+        {% endif %}
       </div>
     </div>
   </div>

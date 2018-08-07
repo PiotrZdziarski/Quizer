@@ -1,0 +1,92 @@
+{% extends 'layouts/app.html.twig' %}
+{% block title %}Quizert - Best{% endblock %}
+{% block content %}
+
+    {% include'layouts/topnav.html.twig' %}
+    <section class="content">
+    {% include 'layouts/carousel.html.twig' %}
+
+
+    <div class="container" style="margin-top:20px;">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+               <div class="mainpagediv" style="margin-bottom: 20px;">
+                <div class="titlequiz" style="margin-bottom: 20px">
+                    <span>Most popular quizes!</span>
+                </div>
+
+                {% for quiz in QuizesDB%}
+                 <!-- POST -->
+                <div id="post{{ loop.index }}" class="post {% if loop.index > 10 %} displaynone {% else %} posthome {% endif %}">
+                    <div class="wrap-ut pull-left">
+                        <div class="userinfo pull-left float-left quizimage rightdivDSB">
+                            <a href="{{ path('quizplay', {'id': quiz.id}) }}">
+                                <img  class="imageinnews img16/9" {% if quiz.image != '' %} alt="{{ quiz.title }}" src="{{ asset(quiz.authorname ~ '/' ~ quiz.image) }}" {% endif %}">
+                            </a>
+                            <div style="clear: both"></div>
+                        </div>
+                        <div id="postnews" class="posttext pull-left" style="float: left;">
+                            <h2><a href="/quiz/{{quiz.id}}">{{ quiz.title }}</a></h2>
+                            {{ quiz.description }}
+                            <br>
+                            <a class="dateinhome">{{ quiz.date|date('Y-m-d h:i:s') }}</a>
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="postinfo pull-left" style="float: left;">
+                        <div class="views" style="padding-top:1px; padding-bottom: 1px; display: flex; justify-content: center; align-items: center;">
+                            <div data-toggle="tooltip" Title="Solutions" data-placement="right"  style="width: 80%; padding-left:1px; padding-right: 0;">
+                                <i class="fa fa-check"></i> {{ quiz.solutions }}
+
+                            </div>
+                        </div>
+                        <div class="views" data-toggle="tooltip" Title="Comments" data-placement="right"><i class="fa fa-comments" style="font-size: 18px;"></i>
+                            <a>
+                              <span class="fb-comments-count" data-href="{{ appname ~ '/quiz/' ~quiz.id }}">0</span>
+                            </a>
+                        </div>
+                        <div class="time" data-toggle="tooltip" Title="{{ quiz.authorname }}" data-placement="right" style="display: flex; justify-content: center; align-items: center; height:70px;">
+                            <div class="avatar">
+                                {% for user in UsersDB %}
+                                    {% if user.username == quiz.authorname  %}
+
+                                        <img
+                                            class="imgavatar"
+                                            {% if user.image != '' %}
+                                                src="{{ asset(user.username ~ '/'~ user.image) }}"
+                                            {% else %}
+                                                src="{{ asset('img/noperson.jpg') }}"
+                                            {% endif %}
+                                        />
+
+                                        {% if user.online == 0 %}
+                                            <div class="status gray statusinquiz">&nbsp</div>
+                                        {% else %}
+                                            <div class="status green statusinquiz">&nbsp</div>
+                                        {% endif %}
+
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear: both"></div>
+                    <div class="clearfix"></div>
+                    </div><!-- POST -->
+                {% endfor %}
+                   <div class="divshowmore">
+                        <button id="btnshowmore" class="btnshowmmore" data-quizcount="{{ quizcount }}" onclick="showmore(event)">
+                            Show more
+                        </button>
+                    </div>
+               </div>
+            </div>
+           {% include 'layouts/sidebar.html.twig' %}
+       </div>
+    </div>
+
+
+    </section>
+    {% include 'layouts/footer.html.twig' %}
+{% endblock %}

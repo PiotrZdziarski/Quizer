@@ -1,5 +1,5 @@
 {% extends 'layouts/app.html.twig' %}
-{% block title %}quizer{% endblock %}
+{% block title %}Quizert - Edit Question{% endblock %}
 {% block content %}
 
     {% include'layouts/topnav.html.twig' %}
@@ -53,7 +53,7 @@
                           </div>
                             <div id="answerdiv5" class="form-group {% if answerarray[4] is not defined %} displaynone {% endif %}">
                               <label class="float-left" for="answer">Answer 5:</label> <input @click="correctanswer" value="5" class="radioanswerinput" id="radioanswer5" type="radio" name="correctanswer" {% if correct_answer_number == 5 %}checked {% endif %}> <div  id="correctanswer5" class="correctanswerdiv {% if correct_answer_number != 5 %} displaynone {% endif %}">Correct answer!</div>
-                              <input type="text" maxlength="150" name="answer5" {% if answerarray[4] is defined %} value="{{ answerarray[4] }}" {% endif %} class="form-control" id="anwer5">
+                              <input type="text" maxlength="150" name="answer5" {% if answerarray[4] is defined %} value="{{ answerarray[4] }}" {% endif %} class="form-control" id="answer5">
                           </div>
                             <div id="answerdiv6" class="form-group {% if answerarray[5] is not defined %} displaynone {% endif %}">
                               <label class="float-left" for="answer">Answer 6:</label>  <input @click="correctanswer" value="6" class="radioanswerinput" id="radioanswer6" type="radio" name="correctanswer" {% if correct_answer_number == 6 %}checked {% endif %}> <div  id="correctanswer6" class="correctanswerdiv {% if correct_answer_number != 6 %} displaynone {% endif %}">Correct answer!</div>

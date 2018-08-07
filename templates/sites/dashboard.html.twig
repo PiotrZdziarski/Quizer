@@ -1,5 +1,5 @@
 {% extends 'layouts/app.html.twig' %}
-{% block title %}quizer{% endblock %}
+{% block title %}Quizert - Dashboard{% endblock %}
 {% block content %}
 
     {% include'layouts/topnav.html.twig' %}
@@ -19,7 +19,7 @@
                                 <span class="quiztitleDSB">{{ quiz.title }}</span>
                                 <div class="utitilitesDSB">
                                     <span style="float:left; margin-right: 10px;"><i class="fa fa-clock"></i>{{ quiz.date|date('d/m/y') }}</span>
-                                    <button class="btn btn-info buttoncollapsequiz" v-on:click="changeaftercollapse" data-collapsed="false" type="button" data-toggle="collapse" data-target="#collapseQuiz{{ quiz.id }}" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-angle-down"></i></button>
+                                    <button class="btn btn-info buttoncollapsequiz" id="buttoncollapseDSB{{ quiz.id }}" onclick="changeaftercollapse(event, {{ quiz.id }})" data-collapsed="false" type="button" data-toggle="collapse" data-target="#collapseQuiz{{ quiz.id }}" aria-expanded="false" aria-controls="collapseExample"><i id="angle{{ quiz.id }}" class="fa fa-angle-down"></i></button>
                                 </div>
                             </div>
                             <div class="collapse" id="collapseQuiz{{ quiz.id }}">
@@ -32,13 +32,16 @@
                                         <b>Solutions:</b> {{ quiz.solutions }}<br>
                                       </div>
                                       <div class="infoDSB" style="display: inline;">
-                                        <b>Comments:</b> {{ quiz.comments }}<br>
+                                        <b>Quiz Type:</b> {% if quiz.typeid == 1 %} Knowledge Test {% endif %} {% if quiz.typeid == 2 %} Psychotest {% endif %}<br>
+                                      </div>
+                                      <div class="infoDSB" style="display: inline;">
+                                        <b>Comments:</b> <span class="fb-comments-count" data-href="{{ appname ~ '/quiz/' ~quiz.id }}"> 0</span><br>
                                       </div>
                                       <div class="infoDSB commentsDSB" style="display: block;">
                                           <span class="deletequizbtn"><a data-toggle="modal" class="cursorpointer" data-target="#deletequizmodal{{ quiz.id }}">Delete quiz</a></span>
                                           {% include 'layouts/modals/deletequizmodal.html.twig' %}
                                       </div>
-                                      <a href="#" class="hoverhref startquizDSB">Start Quiz!</a>
+                                      <a href="{{ path('quiz', {'id': quiz.id}) }}" class="hoverhref startquizDSB">Start Quiz!</a>
                                       <p class="editbuttons">
                                           <a href="{{ path('editquiz', {'id': quiz.id}) }}"><button class="btnequestionDSB quizDSB">Edit Quiz</button></a>
                                           <a href="{{ path('editquestions', {'id': quiz.id}) }}"><button class="btnequestionDSB">Edit Questions</button></a>

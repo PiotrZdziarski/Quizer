@@ -13,7 +13,7 @@ class UtilityController extends Controller
 {
     public function addquestionmethod(Request $request)
     {
-        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') || !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') && !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('index');
         }
         $title = $request->request->get('question');
@@ -120,7 +120,7 @@ class UtilityController extends Controller
 
     public function editquestionmethod(Request $request)
     {
-        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') || !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') && !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('index');
         }
         $title = $request->request->get('question');
@@ -162,10 +162,8 @@ class UtilityController extends Controller
         //lets go with answers
         for ($i = 1; $i <= 10; $i++) {
             //check if answer isset
-            if ($request->request->get("answer$i") != '') {
                 //save answer to array
                 $answerarray[] = $request->request->get("answer$i");
-            }
         }
 
         //previous answers
@@ -179,34 +177,65 @@ class UtilityController extends Controller
         $answercounter = 0;
         $correctanswer = $request->request->get("correctanswer");
         //saving answers to databse
-        for($i = 0; $i < count($prevoiusidarray); $i++) {
-            echo $prevoiusidarray[$i];
-            $answerEntity = $this->getDoctrine()->getManager()->getRepository(Answers::class)->find($prevoiusidarray[$i]);
-            $answercounter++;
-            $answerEntity->setAnswer($answerarray[$i]);
-            //check if answer is correctanswer
-            if ($answercounter == $correctanswer) {
-                $answerEntity->setCorrectanswer(1);
-            } else {
-                $answerEntity->setCorrectanswer(0);
-            }
-            $answerEntity->setCreatorname($username);
-            $answerEntity->setQuestionid($questionid);
+        for($i = 0; $i < count($answerarray); $i++) {
+            echo $answerarray[$i];
+            if(isset($prevoiusidarray[$i]) && isset($answerarray[$i])) {
+                $answerEntity = $this->getDoctrine()->getManager()->getRepository(Answers::class)->find($prevoiusidarray[$i]);
+                $answercounter++;
+                $answerEntity->setAnswer($answerarray[$i]);
 
-            $entityManager->persist($answerEntity);
-            $entityManager->flush();
+                //check if answer is correctanswer
+                if ($answercounter == $correctanswer) {
+                    $answerEntity->setCorrectanswer(1);
+                } else {
+                    $answerEntity->setCorrectanswer(0);
+                }
+                $answerEntity->setCreatorname($username);
+                $answerEntity->setQuestionid($questionid);
+
+                $entityManager->persist($answerEntity);
+                $entityManager->flush();
+
+            }
+            if (array_key_exists($i, $prevoiusidarray) && $answerarray[$i] == '') {
+
+                $answerEntity = $this->getDoctrine()->getManager()->getRepository(Answers::class)->find($prevoiusidarray[$i]);
+                $entityManager->remove($answerEntity);
+                $entityManager->flush();
+
+            }
+           if(!isset($prevoiusidarray[$i]) && $answerarray[$i] != '') {
+
+
+                $answerEntity = new Answers();
+                $answercounter++;
+                $answerEntity->setAnswer($answerarray[$i]);
+                //check if answer is correctanswer
+                if ($answercounter == $correctanswer) {
+                    $answerEntity->setCorrectanswer(1);
+                } else {
+                    $answerEntity->setCorrectanswer(0);
+                }
+                $answerEntity->setCreatorname($username);
+                $answerEntity->setQuestionid($questionid);
+
+                $entityManager->persist($answerEntity);
+                $entityManager->flush();
+
+            }
         }
         $this->addFlash(
             'status',
             'Question succesfully updated!'
         );
         return $this->redirect("editquestions/$quizid");
+        //return new Response('');
     }
 
 
     public function editresultsmethod(Request $request)
     {
-        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') || !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') && !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('index');
         }
         $user = $this->getUser();
@@ -313,7 +342,7 @@ class UtilityController extends Controller
 
     public function realeditresultsmethod(Request $request)
     {
-        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') || !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY') && !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('index');
         }
         $user = $this->getUser();
@@ -360,7 +389,9 @@ class UtilityController extends Controller
             }
         } elseif($questioncount == 2) {
             for ($i = 1; $i < 4; $i++) {
-                $endingquote = new Endingquotes();
+                $id = $request->request->get("resultid$i");
+                $em = $this->getDoctrine()->getManager();
+                $endingquote = $em->getRepository(Endingquotes::class)->find($id);
                 $title = $request->request->get("text$i");
                 $description = $request->request->get("description$i");
                 $from = $request->request->get("from$i");
@@ -397,7 +428,9 @@ class UtilityController extends Controller
             }
         } elseif($questioncount > 2) {
             for ($i = 1; $i < 5; $i++) {
-                $endingquote = new Endingquotes();
+                $id = $request->request->get("resultid$i");
+                $em = $this->getDoctrine()->getManager();
+                $endingquote = $em->getRepository(Endingquotes::class)->find($id);
                 $title = $request->request->get("text$i");
                 $description = $request->request->get("description$i");
                 $from = $request->request->get("from$i");

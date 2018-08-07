@@ -3,7 +3,7 @@
 
        <!-- -->
         <div class="sidebarblock searchdiv">
-            <h3 class="headercreatequiz"><b>Search quiz!</b></h3>
+            <div style="border-top: 3px solid #1abc9c; border-radius: 4px;"><h3 class="headercreatequiz"><b>Search quiz!</b></h3></div>
             <div class="divline"></div>
             <div class="blocktxt searcher">
                 <form method="post" action = "{{ path('search') }}">
@@ -15,7 +15,7 @@
 
         <!-- -->
         <div class="sidebarblock">
-            <h3 class="headercreatequiz"><b>Create you own quiz!</b></h3>
+            <div style="border-top: 3px solid #f3b306; border-radius: 4px;"><h3 class="headercreatequiz"><b>Create you own quiz!</b></h3></div>
             <div class="divline"></div>
             <div class="blocktxt">
                 <div class="divgraphicquiz"><img class="graphiccreate fadeinimage" src="{{ asset('img/createquiz.png') }}"></div>
@@ -24,83 +24,62 @@
             </div>
         </div>
 
-        <!-- -->
-        <div class="sidebarblock">
-            <h3>Poll of the Week</h3>
-            <div class="divline"></div>
-            <div class="blocktxt">
-                <p>Which game you are playing this week?</p>
-                <form action="#" method="post" class="form">
-                    <table class="poll">
-                        <tr>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar color1" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
-                                        Call of Duty Ghosts
-                                    </div>
+       <div class="sidebarblock">
+           <div style="border-top: 3px solid #f31759; border-radius: 4px;"><h3 class="headercreatequiz"><b>Most popular categories!</b></h3></div>
+           <div class="utilities" style="padding:0px; box-shadow: 0 0 0 !important;">
+                    <div id="categories" class="answercontainer alsolikecontainer" style="box-shadow: 0 0 0 !important; border-bottom: 1px solid lightgray;">
+                       {% for category in categoriesDB|slice(0,4) %}
+                            <div class="answer category alsolikequiz categorysidebar boxshadow{{ category.id }}" v-cloak style="border-top-left-radius: 5px; display: block !important;ł border-bottom-left-radius: 5px;" onclick="redirectcategory({{ category.id }})">
+                                <div class="categoryinfo" style="overflow: hidden;  padding: 10px;height: 70px; font-size: 16px;">
+                                    {{ category.category}}<br>
+                                    <a style="font-size: 12px;">Quiz Count: {{ category.quizcount  }}</a>
                                 </div>
-                            </td>
-                            <td class="chbox">
-                                <input id="opt1" type="radio" name="opt" value="1">
-                                <label for="opt1"></label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar color2" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 63%">
-                                        Titanfall
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="chbox">
-                                <input id="opt2" type="radio" name="opt" value="2" checked>
-                                <label for="opt2"></label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar color3" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
-                                        Battlefield 4
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="chbox">
-                                <input id="opt3" type="radio" name="opt" value="3">
-                                <label for="opt3"></label>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-                <p class="smal">Voting ends on 19th of October</p>
-            </div>
-        </div>
+                            </div>
+                         {% endfor %}
+                    </div>
+                    <div class="btnallcategories">
+                        <span class="spanallcategories"><a href="{{ path('categories') }}" class="underline hoverhrefcategories">Show all categories!</a></span>
+                    </div>
+           </div>
+         </div>
+
+
 
         <!-- -->
         <div class="sidebarblock">
-            <h3>My Active Threads</h3>
-            <div class="divline"></div>
-            <div class="blocktxt">
-                <a href="#">This Dock Turns Your iPhone Into a Bedside Lamp</a>
-            </div>
-            <div class="divline"></div>
-            <div class="blocktxt">
-                <a href="#">Who Wins in the Battle for Power on the Internet?</a>
-            </div>
-            <div class="divline"></div>
-            <div class="blocktxt">
-                <a href="#">Sony QX10: A Funky, Overpriced Lens Camera for Your Smartphone</a>
-            </div>
-            <div class="divline"></div>
-            <div class="blocktxt">
-                <a href="#">FedEx Simplifies Shipping for Small Businesses</a>
-            </div>
-            <div class="divline"></div>
-            <div class="blocktxt">
-                <a href="#">Loud and Brave: Saudi Women Set to Protest Driving Ban</a>
-            </div>
+            <div style="border-top: 3px solid dodgerblue; border-radius: 4px;"><h3 class="headercreatequiz"><b>Popular Quizes</b></h3></div>
+            <div class="utilities" style="padding:0px;">
+                <div class="answercontainer alsolikecontainer">
+                    {% for alsolikequiz in carousel_quizesDB|slice(0,8) %}
+                        <div class="answer alsolikequiz" style="width: 100% !important; flex:auto;"  onclick="redirectalsolike({{ alsolikequiz.id }})">
+                            <div class="rightdivDSB divimg40%w" id="alsolikeprop{{ alsolikequiz.id }}">
+                                <img {% if alsolikequiz.image != '' %} src="{{ asset(alsolikequiz.authorname ~ '/' ~ alsolikequiz.image) }}" {% endif %} style="width: 100%; transition: .3s ease-in-out all;" class="img16/9">
+                            </div>
+                            {% if alsolikequiz.image != '' %}
+                                <style>
+                                     .alsolikequiz:hover > #alsolikeprop{{ alsolikequiz.id }}{background-color: black; }
+                                </style>
+                             {% else %}
+                                <style>
+                                    .alsolikequiz > #alsolikeprop{{ alsolikequiz.id }}{transition: .1s all ease-in-out;}
+                                    .alsolikequiz:hover > #alsolikeprop{{ alsolikequiz.id }}{background-color: #dfdfdf;}
+                                </style>
+                            {% endif %}
+                            <div class="alsolikequizinfo" style="overflow: hidden; height: 70px; font-size: 16px;">
+                                <div class="categoryalsolike">
+                                    {% for category in categoriesDB %}
+                                        {% if alsolikequiz.categoryid == category.id %}
+                                            {{ category.category }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                {{ alsolikequiz.title }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                 </div>
         </div>
+
 
 
     </div>

@@ -1,5 +1,5 @@
 {% extends 'layouts/app.html.twig' %}
-{% block title %}quizer{% endblock %}
+{% block title %}Quizert - Create Quiz{% endblock %}
 {% block content %}
     {% include'layouts/topnav.html.twig' %}
     <section class="content bgimagecontent createmainsection" style="min-height: 80vh;">
@@ -8,7 +8,7 @@
             <div class="row">
                 <span class="quizdashboardtitle quidashboardtitlecreate">Create Quiz!</span>
                 <div class="sexy_line" id="sexylinecreate"></div>
-                <div class="col-md-10 col-lg-10 centeringmargin" style="box-shadow: 0 1px 2px #b9bbbe; background-color: white; margin-bottom: 100px; padding:0; margin-top: 20px;">
+                <div class="col-md-10 col-lg-10 centeringmargin editingdiv">
                     <div class="leftcontainercreateimage">
                        <form action="{{ path('createquizmethod') }}" method="post" id="formcreatequiz" enctype="multipart/form-data">
                            <div class="form-group">
@@ -20,7 +20,7 @@
                           </div>
                           <div class="form-group">
                             <label for="title">Title:</label>
-                            <input type="text" maxlength="150" name="title" class="form-control" id="title" required>
+                            <input type="text" maxlength="60" name="title" class="form-control" id="title" required>
                           </div>
                           <div class="form-group">
                             <label for="category">Category:</label>
@@ -32,20 +32,20 @@
                           </div>
                           <div class="form-group">
                             <label for="description">Description:</label>
-                              <textarea class="form-control"  maxlength="200" name="description" placeholder="Awesome quiz!" id="description" required></textarea>
+                              <textarea class="form-control"  maxlength="250" name="description" placeholder="Awesome quiz!" id="description" required></textarea>
                           </div>
                           <div class="form-group row">
                             <div  style="float:left;margin-left: 15px;">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="radio" name="publicprivate" value="0" checked>Private <span data-toggle="tooltip" Title="Only you will have access to your quiz!">(?)</span>
+                                        <input type="radio" name="publicprivate" value="0" checked><span style="color: #626864">Private <span data-toggle="tooltip" Title="Quiz won't be displayed on the main page, you will have access to it from your dashboard!">(?)</span></span>
                                     </label>
                                 </div>
                             </div>
                               <div style="float:left; margin-left: 20px;">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="radio" name="publicprivate" value="1">Public <span data-toggle="tooltip" Title="Everyone will have access to your quiz!">(?)</span>
+                                        <input type="radio" name="publicprivate" value="1"><span style="color: dodgerblue">Public <span data-toggle="tooltip" Title="Everyone will have access to your quiz!">(?)</span></span>
                                     </label>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                               <div class="alertcreate">Warning! The dimensions of your image will be set to 16:9!</div>
                             <div class="imagedivincreate"><img style="max-width: 100%; background: #eeeeee; display: block; max-height: 190px; width: 340px; height: 190px;" id="output"></div>
                         </div>
-                        <button type="submit"  id="btnsubmit" onclick="preventsubmitresult()" class="btn btn-primary btnsubmitquiz">Save changes</button>
+                        <button type="submit"  id="btnsubmit" onclick="preventsubmitresult()" class="btn btn-primary btnsubmitquiz">Create Quiz</button>
                         </form>
                     </div>
                 </div>

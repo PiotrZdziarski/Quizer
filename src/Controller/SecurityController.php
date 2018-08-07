@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Categories;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
@@ -26,10 +28,15 @@ class SecurityController extends Controller
         $query = $em->createQuery('SELECT quiz FROM App\Entity\Quiz quiz WHERE quiz.public = 1 ORDER BY quiz.id DESC');
         $carousel_quizesDB = $query->setMaxResults(15)->getResult();
 
+        //categories
+        $query = $em->createQuery('SELECT category FROM App\Entity\Categories category ORDER BY category.quizcount DESC');
+        $categoriesDB = $query->getResult();
+
         return $this->render('security/login.html.twig', [
             'error' => $error,
             'last_username' => $lastUsername,
-            'carousel_quizesDB' => $carousel_quizesDB
+            'carousel_quizesDB' => $carousel_quizesDB,
+            'categoriesDB' => $categoriesDB
         ]);
     }
     /**
@@ -37,7 +44,10 @@ class SecurityController extends Controller
      */
     public function logout()
     {
-        $user = new User();
+        $this->addFlash(
+            'status',
+            'Logged out!'
+        );
     }
 
     /**
@@ -52,7 +62,12 @@ class SecurityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery('SELECT quiz FROM App\Entity\Quiz quiz WHERE quiz.public = 1 ORDER BY quiz.id DESC');
         $carousel_quizesDB = $query->setMaxResults(15)->getResult();
-        return $this->render('security/register.html.twig', ['carousel_quizesDB' => $carousel_quizesDB
+
+        //categories
+        $query = $em->createQuery('SELECT category FROM App\Entity\Categories category ORDER BY category.quizcount DESC');
+        $categoriesDB = $query->getResult();
+
+        return $this->render('security/register.html.twig', ['carousel_quizesDB' => $carousel_quizesDB, 'categoriesDB' => $categoriesDB
         ]);
     }
 
@@ -94,11 +109,23 @@ class SecurityController extends Controller
             $userObject = new User();
             $userObject->setUsername($user);
             $userObject->setPassword(password_hash($password, PASSWORD_BCRYPT));
+            $userObject->setOnline(0);
+            $userObject->setImage('');
             $userObject->setEmail($email);
 
             $entityManager->persist($userObject);
             $entityManager->flush();
+
+            $this->addFlash(
+                'status',
+                'Registered successfully!'
+            );
+
+            $token = new UsernamePasswordToken($userObject, null, 'main', $userObject->getRoles());
+            $this->container->get('security.token_storage')->setToken($token);
+            $this->container->get('session')->set('_security_main', serialize($token));
         }
+
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery('SELECT quiz FROM App\Entity\Quiz quiz WHERE quiz.public = 1 ORDER BY quiz.id DESC');
         $carousel_quizesDB = $query->setMaxResults(15)->getResult();

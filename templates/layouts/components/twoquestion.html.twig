@@ -166,7 +166,7 @@
         <label for="from" class="from">From:</label>
         <input required maxlength="10" name="from2" value="{{ result1.minanswers }}" type = "text" style="width: 20px; text-align: center;" id=from">
         <label for="to" class="to">To:</label>
-        <input required maxlength="10" name="to2" value="{{ quesioncount }}" type = "text" style="width: 20px; text-align: center;" id=to">
+        <input required maxlength="10" name="to2" value="{{ result1.maxanswers }}" type = "text" style="width: 20px; text-align: center;" id=to">
       </div>
        <div class="form-group">
         <label for="title">Text:</label>
@@ -180,7 +180,7 @@
 
     <div class="sexy_line nomargintop"></div>
       <div class="form-group">
-          <input type="hidden" value="{{ result2.id }}" name="resultid2">
+          <input type="hidden" value="{{ result2.id }}" name="resultid3">
         <label for="from" class="from">From:</label>
         <input required maxlength="10" name="from3" value="{{ result2.minanswers }}" type = "text" style="width: 20px; text-align: center;" id=from">
         <label for="to" class="to">To:</label>

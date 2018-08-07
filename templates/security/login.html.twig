@@ -1,5 +1,5 @@
 {% extends 'layouts/app.html.twig' %}
-{% block title %}quizer{% endblock %}
+{% block title %}Quizert - Login{% endblock %}
 {% block content %}
 
     {% include 'layouts/topnav.html.twig' %}
@@ -11,86 +11,104 @@
         <div class="row">
             <div class="col-lg-8 col-md-8">
                 <div class="post" style="padding: 25px;">
-                <form method="POST" action="{{ path('login') }}">
-                    <div class="form-group row">
-                        <label for="email" class="col-sm-4 col-form-label text-md-right"><b>Username</b></label>
 
-                        <div class="col-md-6">
-                            <input id="email" type="text" class="form-control" name="_username" value="{{ last_username }}" required autofocus>
-                            {% if error %}
-                            <span class="errorspan"><b style="color: #b21f2d">{{ error.messageKey }}</b></span>
-                        {% endif %}
+                    {% for message in app.flashes('login') %}
+                        <input id="backbuttonstate" type="text" value="0" style="display:none;" />
+                        <div id="messagelogin">
+                            <transition name="fade">
+                                <div v-if="statusMessage" class="flash-notice-login" v-cloak>
+                                    {{ message }} <div class="timesclose" @click = "hidenotice">&times</div>
+                                </div>
+                            </transition>
                         </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right"><b>Password</b></label>
+                        <script>
+                            new Vue({
+                                el: '#messagelogin',
+                                data: {
+                                    statusMessage: false,
+                                    backbuttonstate,
+                                },
+                                mounted: function() {
+                                    this.hidemessage();
+                                    var self = this;
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                       this.backbuttonstate = document.getElementById("backbuttonstate");
+                                       if (this.backbuttonstate.value == "0") {
+                                         self.statusMessage = true;
+                                         this.backbuttonstate.value = "1";
+                                       } else {
+                                           self.statusMessage = false;
+                                         // Back button has been fired.. Do Something different..
+                                       }
+                                    }, false);
+                                },
+                                methods: {
+                                    hidemessage() {
+                                        var self = this;
+                                        setTimeout(function(){
+                                            self.statusMessage = false
+                                        }, 4000);
+                                    },
+                                    hidenotice() {
+                                        this.statusMessage = false;
+                                    }
+                                }
+                            });
+                        </script>
+                    {% endfor %}
 
-                        <div class="col-md-6">
-                            <input id="password" type="password" class="form-control" name="_password" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-md-6 offset-md-4">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="remember">Remember Me
-                                </label>
+                    <form method="POST" action="{{ path('login') }}">
+                        <div class="form-group row">
+                            <div class="loginname">
+                                Log in and use all the possibilities of the site!
                             </div>
                         </div>
-                    </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-4 col-form-label text-md-right"><b>Username</b></label>
 
-                    <div class="form-group row mb-0">
-                        <div class="col-md-8 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
-                                Login
-                            </button>
+                            <div class="col-md-6">
+                                <input id="email" type="text" class="form-control" name="_username" value="{{ last_username }}" required autofocus>
+                                {% if error %}
+                                <span class="errorspan"><b style="color: #b21f2d">{{ error.messageKey }}</b></span>
+                            {% endif %}
+                            </div>
+                        </div>
 
-                            <span style="margin-left: 10px;"><a class="hoverhref" href="#">
-                                 Forgot Your Password?
-                            </a></span>
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right"><b>Password</b></label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control" name="_password" required>
+                            </div>
                         </div>
-                    </div><br>
-                    <div class="form-group row mb-0">
-                        <div class="col-md-8 offset-md-4">
-                            <a href="{{ path('register') }}" class="hoverhref">Don't have an account?</a>
+
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="remember_me" name="_remember_me">Remember Me
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Login
+                                </button>
+                            </div>
+                        </div><br>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <a href="{{ path('register') }}" class="hoverhref">Don't have an account?</a>
+                            </div>
+                        </div>
                 </form>
                 </div>
             </div>
            {% include 'layouts/sidebar.html.twig' %}
-
-
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-xs-12">
-                    <div class="pull-left"><a href="#" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
-                    <div class="pull-left">
-                        <ul class="paginationforum">
-                            <li class="hidden-xs"><a href="#">1</a></li>
-                            <li class="hidden-xs"><a href="#">2</a></li>
-                            <li class="hidden-xs"><a href="#">3</a></li>
-                            <li class="hidden-xs"><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">6</a></li>
-                            <li><a href="#" class="active">7</a></li>
-                            <li><a href="#">8</a></li>
-                            <li class="hidden-xs"><a href="#">9</a></li>
-                            <li class="hidden-xs"><a href="#">10</a></li>
-                            <li class="hidden-xs hidden-md"><a href="#">11</a></li>
-                            <li class="hidden-xs hidden-md"><a href="#">12</a></li>
-                            <li class="hidden-xs hidden-sm hidden-md"><a href="#">13</a></li>
-                            <li><a href="#">1586</a></li>
-                        </ul>
-                    </div>
-                    <div class="pull-left"><a href="#" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
-                    <div class="clearfix"></div>
-                </div>
-             </div>
-          </div>
        </div>
     </div>
 

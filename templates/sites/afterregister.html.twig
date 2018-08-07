@@ -1,5 +1,5 @@
 {% extends 'layouts/app.html.twig' %}
-{% block title %}quizer{% endblock %}
+{% block title %}Quizert - Register{% endblock %}
 {% block content %}
 
     {% include 'layouts/topnav.html.twig' %}
@@ -13,7 +13,8 @@
                 <div class="post" style="padding: 25px; text-align: center; font-size: 24px;">
                     <span class="afterregisterspan">Registered succesfully!</span>
                     <br>
-                    <a href="{{ path('login') }}">Go to login page!</a>
+                    <a style="color: #666666">Thank you for your registration! <3</a><br>
+                    <a class="linkafterregister" href="{{ path('dashboard') }}">Go to dashboard!</a>
                 </div>
             </div>
            {% include 'layouts/sidebar.html.twig' %}

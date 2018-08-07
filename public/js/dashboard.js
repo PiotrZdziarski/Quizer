@@ -13,6 +13,7 @@ new Vue({
             for(var i = 10; i>=3; i--) {
                 if(!document.getElementById("answerdiv" + i).classList.contains('displaynone')) {
                     document.getElementById("answerdiv" + i).classList.add('displaynone');
+                    document.getElementById('answer' + i).value= '';
                     break;
                 }
             }
@@ -22,6 +23,16 @@ new Vue({
                     document.getElementById('correctanswer' + j).classList.add('displaynone');
                     document.getElementById('radioanswer1').checked = true;
                     document.getElementById('correctanswer1').classList.remove('displaynone');
+                }
+            }
+        },
+        removeanswerpsychotest() {
+            for(var i = 10; i>=3; i--) {
+                if(!document.getElementById("answerdiv" + i).classList.contains('displaynone')) {
+                    document.getElementById("answerdiv" + i).classList.add('displaynone');
+                    document.getElementById('answer' + i).value= '';
+                    document.getElementById('radioanswer' + i).value = '';
+                    break;
                 }
             }
         },

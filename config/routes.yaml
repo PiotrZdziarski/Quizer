@@ -1,3 +1,39 @@
+top:
+   path: /top
+   controller: App\Controller\SitesController::top
+profilemethod:
+   path: /profilemethod
+   controller: App\Controller\UIcontroller::profilemethod
+profile:
+   path: /profile
+   controller: App\Controller\SitesController::profile
+category:
+   path: /category/{id}
+   controller: App\Controller\SitesController::category
+categories:
+   path: /categories
+   controller: App\Controller\SitesController::categories
+checkscorepsychotest:
+   path: quizplay/checkscorepsychotest/{score}/{id}
+   controller: App\Controller\PsychotestController::checkscorepsychotest
+EditQPMethod:
+   path: /EditQPMethod
+   controller: App\Controller\PsychotestController::EditQPMethod
+editquestionpsychotest:
+   path: /editquestionpsychotest/{id}
+   controller: App\Controller\SitesController::editquestionpsychotest
+deletequestionpsychotest:
+   path: /deletequestionpsychotest/{id}
+   controller: App\Controller\PsychotestController::deletequestionpsychotest
+addquestionpsychotest:
+   path: /addquestionpsychotest
+   controller: App\Controller\PsychotestController::addquestionpsychotest
+editresultspsychotest:
+   path: /editresultspsychotest
+   controller: App\Controller\PsychotestController::editresultspsychotest
+addresultspsychotest:
+   path: /addresultspsychotest
+   controller: App\Controller\PsychotestController::addresultspsychotest
 deletequiz:
    path: /deletequiz/{quizid}
    controller: App\Controller\UIcontroller::deletequiz
@@ -64,9 +100,6 @@ checkemail:
 quiz:
     path: /quiz/{id}
     controller: App\Controller\SitesController::quiz
-profile:
-    path: /profile
-    controller:  App\Controller\SitesController::profile
 quizplay:
     path: /quizplay/{id}
     controller: App\Controller\SitesController::quizplay

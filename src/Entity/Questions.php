@@ -22,12 +22,12 @@ class Questions
     private $quizid;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      */
     private $question;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      */
     private $authorname;
 

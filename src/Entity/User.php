@@ -32,6 +32,16 @@ class User implements UserInterface, \Serializable
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $online;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
     public function getId()
     {
         return $this->id;
@@ -73,6 +83,28 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    public function getOnline()
+    {
+        return $this->online;
+    }
+
+    public function setOnline($online)
+    {
+        $this->online = $online;
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
     public  function getRoles()
     {
         return [
@@ -83,11 +115,13 @@ class User implements UserInterface, \Serializable
     public function getSalt(){}
     public function eraseCredentials(){}
     public function serialize() {
+        $this->online = 1;
         return serialize([
             $this->id,
             $this->username,
             $this->email,
-            $this->password
+            $this->password,
+            $this->online
         ]);
     }
     public function  unserialize($serialized)
@@ -96,7 +130,8 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->email,
-            $this->password
+            $this->password,
+            $this->online
         ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
